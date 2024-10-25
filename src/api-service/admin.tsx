@@ -5,12 +5,17 @@ export const getCategoryApi = async (query : any) => {
     return apiFunctions.get(`${siteUrls.admin.category.category}/${query}`);
   }
 
+  // delete api for category
+  export const deleteCategoryApi = async (query : any) => {
+    return apiFunctions.delete(`${siteUrls.admin.category.category}/${query}`);
+  }
+
   export const getBrandApi = async (query : any) => {
     return apiFunctions.get(`${siteUrls.admin.brand.brand}/${query}`);
   }
 
   export const getProductApi = async (query : any) => {
-    return apiFunctions.get(`${siteUrls.admin.product.product}/${query}`);
+    return apiFunctions.get(`${siteUrls.admin.product.product}${query}`);
   }
 
   // upload category post api 

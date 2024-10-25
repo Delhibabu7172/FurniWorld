@@ -11,7 +11,8 @@ import { PiUploadFill } from "react-icons/pi";
 import { BiPlus, BiTrash, BiXCircle } from "react-icons/bi";
 import ProductColorImages from "./ProductColorImages";
 import { useNavigate, useParams } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { FaTimes } from "react-icons/fa";
 
 
 // const electronicSchema = new mongoose.Schema({
@@ -45,8 +46,6 @@ import { useEffect } from "react";
 
 function ProductCreate() {
  
- 
-
   const naviagte = useNavigate()
 
   const { id } = useParams() 
@@ -118,8 +117,8 @@ useEffect(()=>{
       electronics : yup.object({
         powerConsumption : yup.string().optional(), // e.g., "1500W"
         // warranty : yup.string().optional(),// e.g., "2 years"
-        batteryLife : yup.string().optional(),// e.g., "8 hours"
-        connectivity : yup.string().optional(),// e.g., ["WiFi", "Bluetooth", "USB"]
+        batteryLife: yup.string().optional(), // e.g., "8 hours"
+        connectivity : yup.array().of(yup.string().optional()),// e.g., ["WiFi", "Bluetooth", "USB"]
         voltage : yup.string().optional()// e.g., "220V"
       }).nullable(),
       furnitures : yup.object({
@@ -138,10 +137,7 @@ useEffect(()=>{
         material : yup.string().optional(),// e.g., "Stainless Steel", "Plastic"
         dishwasherSafe: yup.string().optional(),
         heatResistance : yup.string().optional(),// e.g., "Up to 400°F"
-        setIncludes : yup.string().optional(),// e.g., "Up to 400°F"
-        // setIncludes : yup.array().of(
-        //   yup.string().optional()
-        // ),// e.g., ["Spoon", "Fork", "Knife"]
+        setIncludes : yup.array().of(yup.string().optional()),// e.g., ["Spoon", "Fork", "Knife"]
       }).nullable()
     }).nullable()
 });
@@ -241,6 +237,47 @@ const { fields: sizeFields, append: appendSize, remove: removeSize } = useFieldA
 //     }
 // };
 
+const [connectivityInput, setConnectivityInput] = useState("");
+const [connectivityList, setConnectivityList] = useState<string[]>([]);
+
+const [setIncludesInput, setSetIncludesInput] = useState("");
+const [setIncludesList, setSetIncludesList] = useState<string[]>([]);
+
+console.log(connectivityList);
+
+
+  // Handle adding new connectivity items when pressing Enter
+  const handleConnectivityKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" && connectivityInput.trim() !== "") {
+      setConnectivityList([...connectivityList, connectivityInput]);
+      setValue("specifications.electronics.connectivity", [...connectivityList, connectivityInput]);
+      setConnectivityInput(""); // Clear the input after adding
+      e.preventDefault(); // Prevent form submission when pressing Enter
+    }
+  };
+
+  const removeConnectivity = (indexToRemove: number) => {
+    const newConnectivityList = connectivityList.filter((_, index) => index !== indexToRemove);
+    setConnectivityList(newConnectivityList);
+    setValue("specifications.electronics.connectivity", newConnectivityList); // Update the form value
+  };
+
+   // Handle adding new connectivity items when pressing Enter
+   const handleSetIncludesKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" && setIncludesInput.trim() !== "") {
+      setSetIncludesList([...setIncludesList, setIncludesInput]);
+      setValue("specifications.kitchen.setIncludes", [...setIncludesList, setIncludesInput]);
+      setSetIncludesInput(""); // Clear the input after adding
+      e.preventDefault(); // Prevent form submission when pressing Enter
+    }
+  };
+
+  const removeSetIncludes = (indexToRemove: number) => {
+    const newSetIncludesList = setIncludesList.filter((_, index) => index !== indexToRemove);
+    setSetIncludesList(newSetIncludesList);
+    setValue("specifications.kitchen.setIncludes", newSetIncludesList); // Update the form value
+  };
+
 
 const handleMultiUploadImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
   const files = Array.from(e.target.files as FileList); // Get all selected files
@@ -338,7 +375,7 @@ console.log(data);
           powerConsumption: data?.specifications?.electronics?.powerConsumption,
           // warranty: data?.specifications?.electronics?.warranty,
           batteryLife: data?.specifications?.electronics?.batteryLife,
-          connectivity: data?.specifications?.electronics?.connectivity,
+          connectivity: connectivityList,
           voltage: data?.specifications?.electronics?.voltage,
         },
       }
@@ -363,7 +400,7 @@ console.log(data);
           material: data?.specifications?.kitchen?.material,
           dishwasherSafe: data?.specifications?.kitchen?.dishwasherSafe,
           heatResistance: data?.specifications?.kitchen?.heatResistance,
-          setIncludes: data?.specifications?.kitchen?.setIncludes,
+          setIncludes: setIncludesList,
         },
       }
     : {}, // Default empty object if none of the categories match
@@ -689,6 +726,7 @@ console.log(data);
                               <input
                               type="number"
                                   {...register(`specifications.furnitures.weightCapacity`)}
+                                  onInput={(e) => {e.currentTarget.value = e.currentTarget.value.replace(/[^0-9]/g,'')}}
                                   className="border-[1px] w-full py-[6px] rounded-sm px-2 placeholder:text-xs mt-2"
                                   placeholder="Enter weightCapacity eg.150 (in kg)"
                               />
@@ -741,6 +779,7 @@ console.log(data);
                               <input
                               type="number"
                                   {...register(`specifications.furnitures.dimensions.length`)}
+                                  onInput={(e) => {e.currentTarget.value = e.currentTarget.value.replace(/[^0-9]/g,'')}}
                                   className="border-[1px] w-full py-[6px] rounded-sm px-2 placeholder:text-xs mt-2"
                                   placeholder="Enter Length e.g., 200 (in cm)"
                               />
@@ -753,6 +792,7 @@ console.log(data);
                               <input
                               type="number"
                                   {...register(`specifications.furnitures.dimensions.width`)}
+                                  onInput={(e) => {e.currentTarget.value = e.currentTarget.value.replace(/[^0-9]/g,'')}}
                                   className="border-[1px] w-full py-[6px] rounded-sm px-2 placeholder:text-xs mt-2"
                                   placeholder="Enter Width e.g., 100 (in cm)"
                               />
@@ -765,6 +805,7 @@ console.log(data);
                               <input
                               type="number"
                                   {...register(`specifications.furnitures.dimensions.height`)}
+                                  onInput={(e) => {e.currentTarget.value = e.currentTarget.value.replace(/[^0-9]/g,'')}}
                                   className="border-[1px] w-full py-[6px] rounded-sm px-2 placeholder:text-xs mt-2"
                                   placeholder="Enter Height e.g., 75 (in cm)"
                               />
@@ -821,16 +862,48 @@ console.log(data);
                                   <p className="text-red-500">{errors?.specifications?.electronics?.batteryLife.message}</p>
                               )}
                           </div>
-                          <div className="flex flex-col col-span-3">
+                          {/* <div className="flex flex-col col-span-3">
                           <label htmlFor="contact-lead-score" className="font-medium ">Connectivity</label>
                               <input
-                                  {...register(`specifications.electronics.batteryLife`)}
+                               onChange={(e) => setConnectivityInput(e.target.value)}
+                               onKeyDown={handleConnectivityKeyDown}
                                   className="border-[1px] w-full py-[6px] rounded-sm px-2 placeholder:text-xs mt-2"
                                   placeholder="Enter Connectivity e.g., WiFi, Bluetooth, USB"
                               />
                               {errors?.specifications?.electronics?.connectivity && (
                                   <p className="text-red-500">{errors?.specifications?.electronics?.connectivity.message}</p>
                               )}
+                          </div> */}
+                          <div className="flex flex-col col-span-3">
+                            <label htmlFor="connectivity" className="font-medium">Connectivity</label>
+                            <input
+                              type="text"
+                              value={connectivityInput}
+                              onChange={(e) => setConnectivityInput(e.target.value)}
+                              onKeyDown={handleConnectivityKeyDown}
+                              className="border-[1px] w-full py-[6px] rounded-sm px-2 placeholder:text-xs mt-2"
+                              placeholder="Enter Connectivity e.g., WiFi, Bluetooth, USB"
+                            />
+
+                            {/* Display entered connectivity items as tags */}
+                            <div className="mt-2 flex flex-wrap gap-2">
+                              {connectivityList.map((connectivity, index) => (
+                                <div key={index} className="bg-gray-200 px-2 py-1 rounded-full flex items-center">
+                                  <span>{connectivity}</span>
+                                  <button
+                                    type="button"
+                                    onClick={() => removeConnectivity(index)}
+                                    className="ml-2 text-red-500 hover:text-red-700"
+                                  >
+                                    <FaTimes />
+                                  </button>
+                                </div>
+                              ))}
+                            </div>
+
+                            {errors?.specifications?.electronics?.connectivity && (
+                              <p className="text-red-500">{errors?.specifications?.electronics?.connectivity.message}</p>
+                            )}
                           </div>
                           <div className="flex flex-col col-span-3">
                           <label htmlFor="contact-lead-score" className="font-medium ">Voltage</label>
@@ -907,6 +980,37 @@ console.log(data);
                                   <p className="text-red-500">{errors?.specifications?.kitchen?.setIncludes.message}</p>
                               )}
                           </div> */}
+                          <div className="flex flex-col col-span-3">
+                            <label htmlFor="connectivity" className="font-medium">set Includes</label>
+                            <input
+                              type="text"
+                              value={setIncludesInput}
+                              onChange={(e) => setSetIncludesInput(e.target.value)}
+                              onKeyDown={handleSetIncludesKeyDown}
+                              className="border-[1px] w-full py-[6px] rounded-sm px-2 placeholder:text-xs mt-2"
+                              placeholder="Enter Set Includes e.g., Spoon, Fork, Knife"
+                            />
+
+                            {/* Display entered connectivity items as tags */}
+                            <div className="mt-2 flex flex-wrap gap-2">
+                              {setIncludesList.map((setIncludes, index) => (
+                                <div key={index} className="bg-gray-200 px-2 py-1 rounded-full flex items-center">
+                                  <span>{setIncludes}</span>
+                                  <button
+                                    type="button"
+                                    onClick={() => removeSetIncludes(index)}
+                                    className="ml-2 text-red-500 hover:text-red-700"
+                                  >
+                                    <FaTimes />
+                                  </button>
+                                </div>
+                              ))}
+                            </div>
+
+                            {errors?.specifications?.electronics?.connectivity && (
+                              <p className="text-red-500">{errors?.specifications?.electronics?.connectivity.message}</p>
+                            )}
+                          </div>
                     </div>
                   )}
                   </div>

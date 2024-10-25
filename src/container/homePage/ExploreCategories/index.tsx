@@ -48,7 +48,7 @@ function ExploreCategories() {
                         <img src={leftImg} className="w-full h-full" alt="" />
                 </div>
                 <div className="col-span-7 ">
-                  <p className="text-transparent text-7xl lg:text-8xl xl:text-9xl text-stroke">
+                  <p className="text-transparent text-xl sm:text-3xl md:text-7xl lg:text-8xl xl:text-9xl text-stroke">
                     Explore Categories
                   </p>
                   <div className="absolute bottom-0 z-50 bg-white py-2 px-2 lg:py-5 lg:px-5 right-3 w-[62%] rounded-xl shadow-lg border-t-[1px] border-r-[1px] border-primaryColor/10">
