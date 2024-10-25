@@ -6,7 +6,7 @@ import styleBottomImg from "../../../assets/images/home/bannerSection/Container.
 
 function BannerSection() {
   return (
-    <div className=" bg-primaryColor/5 !h-[500px] overflow-hidden grid grid-cols-2 px-[4%] relative">
+    <div className=" bg-primaryColor/5 !h-[500px] overflow-hidden grid grid-cols-2 px-[4%] relative font-Lexend">
         <div className="flex flex-col items-start justify-center ">
                         <p className="font-bold text-[#777777] text-2xl mb-3">Flat 30% Off</p>
                         <div className="flex mb-7">

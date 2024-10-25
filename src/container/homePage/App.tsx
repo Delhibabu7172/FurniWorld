@@ -1,3 +1,4 @@
+import Footer from "../../components/footer"
 import Header from "../../components/header"
 import HeaderTop from "../../components/headerTop"
 import NavbarIndex from "../../components/navabar"
@@ -15,7 +16,7 @@ import Testimonials from "./testimonails"
 function App() {
 
   return (
-   <div className="font-QuickSand "> 
+   <div className="font-Lexend "> 
    <HeaderTop/> 
    <Header/>
    <NavbarIndex/>
@@ -28,6 +29,7 @@ function App() {
    <ContactUs/>
    <Advertisement2/>
    <Testimonials/>
+   <Footer/>
    </div>
   )
 }

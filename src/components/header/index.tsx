@@ -1,4 +1,4 @@
-import logo from "../../assets/images/navbar/logo.png"
+import logo from "../../assets/images/navbar/newlogo.svg"
 import likeImg from "../../assets/images/header/Vector (13).png"
 import cartImg from "../../assets/images/header/Vector (14).png"
 import { BiSearch, BiUser, BiUserCircle } from "react-icons/bi"
@@ -54,9 +54,12 @@ function Header() {
 
   return (
     <>
-    <div className="flex items-center justify-between font-QuickSand py-2 md:py-[15px] px-[3%] md:px-[4%] ">
+    <div className="flex items-center justify-between  py-2 md:py-[15px] px-[3%] md:px-[4%] font-Lexend">
       <div className="flex items-center gap-12">
-        <img src={logo} className="w-24 xl:w-48 2xl:w-52" alt="" />
+      <div className="flex items-center gap-2">
+                    <img src={logo} className="w-20" alt="" />
+                    <p className="font-bold text-xl">FURNI WORLD</p>
+                    </div>
         <div>
         <div className="hidden md:block border-[1.7px]  border-primaryColor rounded-md overflow-hidden min-w-[500px]">
         <div className="flex items-center justify-between">

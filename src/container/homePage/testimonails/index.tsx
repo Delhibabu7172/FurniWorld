@@ -45,11 +45,12 @@ function Testimonials() {
                 </div>
             </Carousel>
             </div>
-            <img src={user} className="absolute top-4 left-28 rounded-md w-14 -rotate-6" alt="" />
+            <img src={user} className="absolute top-20 left-28 rounded-md w-14 -rotate-6" alt="" />
             <img src={user} className="absolute bottom-4 left-36 rounded-md w-12 rotate-6" alt="" />
-            <img src={user} className="absolute bottom-4 left-36 rounded-md w-12 rotate-6" alt="" />
-            <img src={user} className="absolute bottom-4 left-36 rounded-md w-12 rotate-6" alt="" />
-            <img src={user} className="absolute top-0" alt="" />
+            <img src={user} className="absolute top-4 right-[50%] rounded-md w-12 -rotate-12" alt="" />
+            <img src={user} className="absolute top-24 right-[30%] rounded-md w-12 rotate-6" alt="" />
+            <img src={user} className="absolute top-16 right-[10%] rounded-md w-12 " alt="" />
+            <img src={user} className="absolute bottom-10 right-36 rounded-md w-12 rotate-6" alt="" />
             </div>
   )
 }

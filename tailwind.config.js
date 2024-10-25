@@ -11,6 +11,7 @@ export default {
     extend: {
       fontFamily: {
         QuickSand: ['Quicksand', 'sans-serif'],
+        Lexend: ['Lexend', 'sans-serif'],
       },
       colors: {
         primaryColor: "#1A3764",

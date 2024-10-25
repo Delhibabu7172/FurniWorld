@@ -36,7 +36,7 @@ function NavbarIndex() {
       
 
   return (
-    <div className="flex items-center justify-between py-2 font-QuickSand px-[3%] md:px-[4%] bg-[#F8F8FB]">
+    <div className="flex items-center justify-between py-2  px-[3%] md:px-[4%] bg-[#F8F8FB] font-Lexend">
         <div className="border-[1px] rounded-lg p-2 w-12">
             <img src={Icon} alt="" />
         </div>
