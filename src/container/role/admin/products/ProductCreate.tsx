@@ -51,7 +51,7 @@ function ProductCreate() {
   const { id } = useParams() 
 const getProductData = useQuery({
   queryKey : ['getProductData', id],
-  queryFn : () => getProductApi(`${id}`),
+  queryFn : () => getProductApi(`/${id}`),
   enabled : !!id
 })
 const productData = getProductData?.data?.data?.result
@@ -343,7 +343,7 @@ console.log(data);
     name : data?.name,
     category : data?.category,
     description : data?.decription,
-    minimum_price : Number( data?.productSize[0]?.offerPrice),
+    minimum_price : Number(data?.minimumPrice),
     brand : data?.brand,
     return_policy : data?.returnpolicy,
     images : data?.productImages,

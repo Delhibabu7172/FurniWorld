@@ -47,6 +47,8 @@ function Testimonials() {
             </div>
             <img src={user} className="absolute top-4 left-28 rounded-md w-14 -rotate-6" alt="" />
             <img src={user} className="absolute bottom-4 left-36 rounded-md w-12 rotate-6" alt="" />
+            <img src={user} className="absolute bottom-4 left-36 rounded-md w-12 rotate-6" alt="" />
+            <img src={user} className="absolute bottom-4 left-36 rounded-md w-12 rotate-6" alt="" />
             <img src={user} className="absolute top-0" alt="" />
             </div>
   )
