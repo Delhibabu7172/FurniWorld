@@ -1,3 +1,4 @@
+import ContactUs from "../container/homePage/contactUs";
 import AdminBrand from "../container/role/admin/brand";
 import AdminCategory from "../container/role/admin/category";
 import AdminHome from "../container/role/admin/home";
@@ -39,4 +40,8 @@ export const AdminRoutes = [
         path: 'product/:id',
         element: <ProductCreate/>
     },
+    {
+        path: 'contatctUs',
+        element: <ContactUs/>
+    }
 ]

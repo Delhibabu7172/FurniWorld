@@ -41,7 +41,8 @@ const siteUrlsJson = {
       }
     },
     landing : {
-      product : 'auth/product'
+      product : 'auth/product',
+      category : 'auth/productCategory'
     },
     location: {
       pincode: "pincode",

@@ -26,6 +26,10 @@ function Header() {
 
    const profileData = getProfiledata?.data?.data?.result
 
+   useEffect(()=>{
+
+   },[hasToken])
+
    useEffect(() => {
     const handleClickOutside = (event:any) => {
       if (userRef.current && !userRef.current.contains(event.target)) {
@@ -49,7 +53,8 @@ function Header() {
     localStorage.removeItem('userId');
     localStorage.removeItem('name')
     navigate('/')
-    
+    window.location.reload()
+    setOpenUser(false)
   }
 
   return (

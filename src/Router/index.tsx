@@ -5,7 +5,6 @@ import { Role as RoleEnum } from "../components/menus/index"
 import { AdminRoutes } from "./AdminRoutes";
 import { getProfileApi } from "../api-service/authApi";
 import { DefaultRoutes } from "./DefaultRoutes";
-import App from "../container/homePage/App";
 
 function Router() {
   const hasToken = localStorage.getItem('access-token');
@@ -34,16 +33,10 @@ function Router() {
   }
 
   const routes = [
-    
   
-    // {
-    //   path: '/',
-    //   element:<Pages />,
-    //   children: selectRouteByRole(),
-    // },
     {
       path: '/',
-      element: hasToken ? <Pages /> : <App />,
+      element:  <Pages /> ,
       children: selectRouteByRole(),
     },
     

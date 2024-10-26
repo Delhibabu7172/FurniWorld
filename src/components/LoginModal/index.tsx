@@ -56,19 +56,17 @@ function LoginModal({ openModal, handleClose } : any) {
           console.log(updateApi);
       
           if (updateApi?.status === 200) {
-    
-            toast.success(updateApi?.data?.msg)
-            handleClose()
-            navigate('/')
-    
+
             localStorage.setItem('access-token', updateApi.data?.result.tokens.accessToken);
             localStorage.setItem( 'role',btoa(updateApi.data?.result.user.role.name));
             localStorage.setItem('refreshToken',updateApi.data?.result.tokens.refreshToken);
             localStorage.setItem('userId',updateApi.data?.result.user._id);
             localStorage.setItem('name', updateApi.data?.result.user.name);
-            
-            console.log('access-token', updateApi.data?.result.tokens.accessToken);
-            
+    
+            toast.success(updateApi?.data?.msg)
+            handleClose()
+            navigate('/')  
+    
           } else{
             setError('InValid UserName or Password.')
             toast.remove()
@@ -81,7 +79,7 @@ function LoginModal({ openModal, handleClose } : any) {
     
 
   return (
-    <div className="fixed inset-0 z-50 flex pt-[10vh] justify-center bg-opacity-50 bg-primaryColor">
+    <div className="fixed inset-0 z-50 flex pt-[10vh] justify-center bg-opacity-50 bg-primaryColor font-Lexend">
         <div className="flex flex-col w-full max-w-md p-4 overflow-y-scroll bg-white rounded-lg h-fit hide-scrollbar animate-slideTop">
             <div>
             <div className="flex items-center gap-12">
@@ -112,7 +110,7 @@ function LoginModal({ openModal, handleClose } : any) {
                                     <Link to={`/forgotPassword`} className="ltr:float-right rtl:float-left text-danger">Forget password ?</Link>
                                 </div>
                             </div>
-                            {error && <p className='col-span-12 font-medium text-red'>{error}</p>}
+                            {error && <p className='col-span-12 font-medium text-red-500'>{error}</p>}
                             <div className="grid col-span-12 xl:col-span-12">
                             <button aria-label="button" type="submit" className=" !bg-yellow-400 py-2 rounded-sm  !font-bold"
                       

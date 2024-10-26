@@ -9,6 +9,10 @@ export const DEFAULTMENUS = [
     },
     {
         path: `${import.meta.env.BASE_URL}products`,
-        title: 'products'
+        title: 'Products'
+    },
+    {
+        path: `${import.meta.env.BASE_URL}contactUs`,
+        title: 'Contact Us'
     },
 ]

@@ -51,7 +51,7 @@ function ContactUs() {
                     </div>
                   </div>
         </div>
-        <div className="z-50 flex  items-center">
+        <div className="z-10 flex  items-center">
         <div className=" w-[80%] h-[85%] flex items-center justify-center rounded-md overflow-hidden">
                         <iframe 
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d248904.09057771214!2d78.95352364629558!3d12.899591870556668!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bad38e61fa68ffb%3A0xbedda6917d262b5e!2sVellore%2C%20Tamil%20Nadu!5e0!3m2!1sen!2sin!4v1729869096670!5m2!1sen!2sin" 

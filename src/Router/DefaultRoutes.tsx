@@ -1,4 +1,7 @@
 import App from "../container/homePage/App";
+import CategoryHome from "../container/homePage/category";
+import ContactUs from "../container/homePage/contactUs";
+import AuthProducts from "../container/homePage/products";
 
 export const DefaultRoutes = [
     {
@@ -7,10 +10,14 @@ export const DefaultRoutes = [
     },
     {
         path: 'category',
-        element: <App/>
+        element: <CategoryHome/>
     },
     {
         path: 'products',
-        element: <App/>
+        element: <AuthProducts/>
+    },
+    {
+        path: 'contactUs',
+        element: <ContactUs/>
     }
 ]
