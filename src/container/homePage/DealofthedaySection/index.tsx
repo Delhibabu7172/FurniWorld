@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { FaRegStar, FaStar } from "react-icons/fa";
+import { FaEye, FaRegStar, FaStar } from "react-icons/fa";
 import { useQuery } from "@tanstack/react-query";
 import { getProductLandingApi } from "../../../api-service/landingApi";
 import { LuIndianRupee } from "react-icons/lu";
 import { MdOutlineShoppingBag } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
 interface TimeLeft {
     days: number;
@@ -14,6 +15,8 @@ interface TimeLeft {
 
 
 function DayofthedealSection() {
+
+    const navigate = useNavigate();
 
     const calculateTimeLeft = (): TimeLeft => {
         const targetDate = new Date("2024-10-31T00:00:00").getTime(); // Your target date
@@ -85,7 +88,9 @@ function DayofthedealSection() {
                                 <div className="hidden group-hover:flex absolute bottom-2 z-50 left-[50%] transform translate-x-[-50%] translate-y-0 transition-all duration-500 ease-in-out group-hover:-translate-y-10">
                                     <div className="flex items-center gap-2">
                                         <MdOutlineShoppingBag className=" bg-white border border-primaryColor/10 w-9 h-9 p-[6px] rounded-lg flex justify-center items-center hover:text-white hover:bg-primaryColor hover:transform hover:transition-all hover:duration-200" />
-                                        <MdOutlineShoppingBag className=" bg-white border border-primaryColor/10 w-9 h-9 p-[6px] rounded-lg flex justify-center items-center hover:text-white hover:bg-primaryColor hover:transform hover:transition-all hover:duration-200" />
+                                        <FaEye 
+                                        onClick={()=>navigate(`/products/${idx?._id}`)}
+                                        className=" bg-white border border-primaryColor/10 w-9 h-9 p-[6px] rounded-lg flex justify-center items-center hover:text-white hover:bg-primaryColor hover:transform hover:transition-all hover:duration-200" />
                                     </div>
                                     </div>
                            

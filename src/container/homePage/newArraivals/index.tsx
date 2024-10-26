@@ -1,11 +1,14 @@
 import { useQuery } from "@tanstack/react-query"
-import { FaRegStar, FaStar } from "react-icons/fa"
+import { FaEye, FaRegStar, FaStar } from "react-icons/fa"
 import { LuIndianRupee } from "react-icons/lu"
 import { MdOutlineShoppingBag } from "react-icons/md"
 import { getProductLandingApi } from "../../../api-service/landingApi"
+import { useNavigate } from "react-router-dom"
 
 
 function NewArrivals() {
+
+    const navigate = useNavigate()
 
     const getproductData = useQuery({
         queryKey : ['getproductData'],
@@ -38,10 +41,12 @@ function NewArrivals() {
                 <div className="bg-[#E9E9E9] border border-primaryColor/5 rounded-md w-full h-72 flex justify-center items-center relative  px-10 py-10 group-hover:cursor-pointer">
                     <img src={idx?.images[0]} className="h-full group-hover:scale-110 transform transition-all duration-300 ease-in" alt="" />
                     <p className="absolute top-0 left-0 px-2 py-1 text-xs text-white bg-green-600 rounded-br-2xl rounded-tl-md">New</p>
-                        <div className="hidden group-hover:flex absolute bottom-2 z-50 left-[50%] transform translate-x-[-50%] translate-y-0 transition-all duration-500 ease-in-out group-hover:-translate-y-10">
+                        <div className="hidden group-hover:flex absolute bottom-2 z-50 left-[50%] transform translate-x-[-50%] translate-y-0 transition-all duration-500 ease-in-out group-hover:-translate-y-1">
                             <div className="flex items-center gap-2">
-                                <MdOutlineShoppingBag className=" bg-white border border-primaryColor/10 w-9 h-9 p-[6px] rounded-lg flex justify-center items-center hover:text-white hover:bg-primaryColor hover:transform hover:transition-all hover:duration-200" />
-                                <MdOutlineShoppingBag className=" bg-white border border-primaryColor/10 w-9 h-9 p-[6px] rounded-lg flex justify-center items-center hover:text-white hover:bg-primaryColor hover:transform hover:transition-all hover:duration-200" />
+                                <MdOutlineShoppingBag className=" bg-yellow-400 border border-primaryColor/10 w-9 h-9 p-[6px] rounded-lg flex justify-center items-center hover:text-white hover:bg-primaryColor hover:transform hover:transition-all hover:duration-200" />
+                                <FaEye 
+                                onClick={()=>navigate(`/products/${idx?._id}`)}
+                                className=" bg-yellow-400 border border-primaryColor/10 w-9 h-9 p-[6px] rounded-lg flex justify-center items-center hover:text-white hover:bg-primaryColor hover:transform hover:transition-all hover:duration-200" />
                             </div>
                             </div>
                    
