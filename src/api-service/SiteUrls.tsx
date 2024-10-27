@@ -18,7 +18,8 @@ const siteUrlsJson = {
       updateEmailValidation: 'emailValid/update',
       changePassword: "change/password",
       forgotPassword: 'forgot/password',
-      resetPassword: 'reset/password'
+      resetPassword: 'reset/password',
+      signUp: 'signup/form'
     },
     profile: {
       get: 'profile',
@@ -42,7 +43,10 @@ const siteUrlsJson = {
     },
     landing : {
       product : 'auth/product',
-      category : 'auth/productCategory'
+      category : 'auth/productCategory',
+      addCart : 'add/cart',
+      cart : 'cart',
+      removeCart : 'remove/product'
     },
     location: {
       pincode: "pincode",

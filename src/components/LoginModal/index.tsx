@@ -27,7 +27,7 @@ function LoginModal({ openModal, handleClose } : any) {
       }
     
       const schema = yup.object().shape({
-        email: yup.string().required('UserName is required').email('UserName is invalid'),
+        email: yup.string().required('UserName is required'),
         password: yup.string().required('Password is required'),
         navigate : yup.string().optional(),
         device_id : yup.string().optional(),
@@ -90,7 +90,7 @@ function LoginModal({ openModal, handleClose } : any) {
              <div className="grid grid-cols-12 mt-4 gap-y-4">
                             <div className="col-span-12 xl:col-span-12">
                                 <label htmlFor="signin-username" className="form-label text-default">User Name</label>
-                             <input type="email" className="border-[1px] border-primaryColor/40 p-2 w-full !rounded-md" id="signin-username" placeholder="user name" {...register('email')} />
+                             <input type="text" className="border-[1px] border-primaryColor/40 p-2 w-full !rounded-md" id="signin-username" placeholder="user name" {...register('email')} />
                              {errors.email && <p className='mt-1 text-xs font-medium text-red-500'>{getErrorMessage(errors.email)}</p>}
                             </div>
                             <div className="col-span-12 mb-2 xl:col-span-12">

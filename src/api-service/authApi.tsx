@@ -33,6 +33,21 @@ export const getIndiaPincodeApi = async (query : any) => {
   return apiFunctions.get(`${siteUrls.location.pincodeIndia}${query}`);
 };
 
+// mobile otp send post api 
+export const postMobileOtpSendApi = async (payload : any) => {
+  return apiFunctions.post(`${siteUrls.auth.mobileSignup}`,payload);
+};
+
+// mobile otp verify post api 
+export const postMobileOtpVerifyApi = async (payload : any) => {
+  return apiFunctions.post(`${siteUrls.auth.mobileSignupVerify}`,payload);
+};
+
+// signup form put api
+export const putSignUpFormApi = async (query : any,payload : any) => {
+  return apiFunctions.put(`${siteUrls.auth.signUp}/${query}`,payload);
+};
+
 // mobile validation post api 
 export const postMobileValidationApi = async (payload : any) => {
   return apiFunctions.post(`${siteUrls.auth.mobileValidation}`,payload);
