@@ -18,6 +18,10 @@ export const getCategoryApi = async (query : any) => {
     return apiFunctions.get(`${siteUrls.admin.product.product}${query}`);
   }
 
+  export const deleteProductApi = async (query : any,name : any) => {
+    return apiFunctions.delete(`${siteUrls.admin.product.product}/${query}?product_name=${name}`);
+  }
+
   // upload category post api 
 export const uploadCategoryApi = async (payload : any) => {
   return apiFunctions.post(`${siteUrls.admin.category.uploadCategory}`,payload);

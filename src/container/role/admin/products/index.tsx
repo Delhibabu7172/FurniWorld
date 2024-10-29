@@ -3,11 +3,13 @@ import { BiPlus } from "react-icons/bi"
 import { FiEdit3 } from "react-icons/fi"
 import { LuEye } from "react-icons/lu"
 import { RiDeleteBin6Line } from "react-icons/ri"
-import {  getProductApi } from "../../../../api-service/admin"
+import {  deleteProductApi, getProductApi } from "../../../../api-service/admin"
 import { Circles } from "react-loader-spinner"
 import { useNavigate } from "react-router-dom"
 import { useState } from "react"
 import Pagination from "../../../../components/pagination"
+import { MdOutlineKeyboardDoubleArrowLeft, MdOutlineKeyboardDoubleArrowRight } from "react-icons/md"
+import toast from "react-hot-toast"
 
 function AdminProducts() {
 
@@ -26,6 +28,15 @@ const totalPages = productData?.pagination?.pages;
 const handlePageChange = (page: any) => {
   setCurrentPage(page);
 };
+
+// for delete api function
+const handleDelete = async (data : any) =>{
+  const updateApi = await deleteProductApi(data?._id,data?.name)
+  if(updateApi?.status === 200){
+    toast.success(updateApi?.data?.msg)
+    getProductData?.refetch()
+  }
+}
 
   return (
     <>
@@ -71,7 +82,7 @@ const handlePageChange = (page: any) => {
                             {productData?.rows?.map((idx:any,index:number) => (
                                 <tr key={index} className={index % 2 === 1 ? "bg-gray-100" : ""}>
                                 <td className="p-3">{index + 1}.</td>
-                                <td className="p-3"></td>
+                                <td className="p-3">{idx?.product_id}</td>
                                 <td className="p-3">
                                     <div className="flex items-center gap-2">
                                         <img src={idx?.images[0] ? idx?.images[0] : "-"} className="w-14 h-14 rounded-full object-contain border" alt="No " />
@@ -92,7 +103,8 @@ const handlePageChange = (page: any) => {
                                         <button><LuEye className="text-[#1A3764] w-5 h-5"/></button>
                                         <button><FiEdit3 className="text-[#22C55E] w-5 h-5"
                                         onClick={()=>navigate(`/product/${idx?._id}`)}/></button>
-                                        <button><RiDeleteBin6Line className="text-[#FF5200] w-5 h-5"/></button>
+                                        <button
+                                        onClick={()=>handleDelete(idx)}><RiDeleteBin6Line className="text-[#FF5200] w-5 h-5"/></button>
                                     </div>
                                 </td>
                             </tr>
@@ -107,7 +119,7 @@ const handlePageChange = (page: any) => {
                         
                     </tbody>
                 </table>
-                <div className="box-footer">
+                <div className="box-footer mt-4">
                 <div className="sm:flex items-center">
                   <div className="text-defaulttextcolor/70">
                     Showing {(currentPage) * itemsPerPage + 1} to{' '}
@@ -118,10 +130,10 @@ const handlePageChange = (page: any) => {
 
                   <div className="ms-auto">
                     <nav aria-label="" className="pagination-style-1">
-                      <ul className="ti-pagination mb-0">
+                      <ul className="ti-pagination flex items-center justify-center gap-2">
                         <li className={` ${currentPage === 0 ? 'disabled' : ''} rtl:rotate-180`}>
-                          <button aria-label="Previous" className="page-link " onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 0}>
-                            <i className="ri-arrow-left-s-line align-middle"></i>
+                          <button aria-label="Previous" className="page-link flex justify-center items-center" onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 0}>
+                            <MdOutlineKeyboardDoubleArrowLeft />
                           </button>
                         </li>
                         <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange}/>
@@ -135,8 +147,8 @@ const handlePageChange = (page: any) => {
                           </li>
                         ))} */}
                         <li className={` ${currentPage === totalPages - 1 ? 'disabled' : ''} rtl:rotate-180`}>
-                          <button aria-label="Next" className="page-link" onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages - 1}>
-                            <i className="ri-arrow-right-s-line align-middle"></i>
+                          <button aria-label="Next" className="page-link flex justify-center items-center" onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages - 1}>
+                          <MdOutlineKeyboardDoubleArrowRight />
                           </button>
                         </li>
                       </ul>

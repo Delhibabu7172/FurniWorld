@@ -140,8 +140,9 @@ function NewArrivals() {
                     <FaRegStar className="text-orange-500"/>
                     </div>
                     <p className="mt-2">{idx?.sizes[0]?.name}</p>
-                    <div>
-                        <p className="flex items-center"><LuIndianRupee  /> {idx?.sizes[0]?.price} <span className="text-xs line-through ms-2">MRP. <span className="text-xs">₹ 1,079.00</span></span></p>
+                    <div className="flex items-end gap-1">
+                        <p className="flex items-center font-bold"><LuIndianRupee  /> {idx?.sizes[0]?.offerPrice}</p>
+                        <p className="line-through text-sm">₹ {idx?.sizes[0]?.MRP}</p>
                     </div>
                 </div>
         </div>

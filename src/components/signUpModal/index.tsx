@@ -11,8 +11,11 @@ import newLogo from "../../assets/images/navbar/newlogo.svg"
 import { postMobileOtpSendApi, postMobileOtpVerifyApi, putSignUpFormApi } from '../../api-service/authApi';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import LoginModal from '../LoginModal';
 
 function SignUpModal() {
+
+    const [openLogin , setOpenLogin] = useState(false)
 
     const navigate = useNavigate()
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -145,7 +148,10 @@ function SignUpModal() {
 
 
     return (
-        <div className="px-5 py-4 font-Lexend">
+        <>
+        
+
+            <div className="px-5 py-4 font-Lexend">
             <form action="">
                 <div className="grid grid-cols-12 gap-y-4 mt-4">
                     <div className='col-span-12 flex items-center gap-2'>
@@ -271,10 +277,20 @@ function SignUpModal() {
                     )}
 
 
-                    
+                    <div className='col-span-12'>
+                        <p className='text-sm font-extralight'>Already have an Account. <span className='underline cursor-pointer font-medium text-primaryColor'
+                        onClick={()=>{setOpenLogin(true)}}>SignIn</span></p>
+                    </div>
                 </div>
             </form>
         </div>
+        
+
+        {openLogin && (
+            <LoginModal openModal={openLogin} handleClose={()=>setOpenLogin(!openLogin)}/>
+        ) }
+        </>
+        
     )
 }
 

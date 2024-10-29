@@ -46,7 +46,10 @@ const siteUrlsJson = {
       category : 'auth/productCategory',
       addCart : 'add/cart',
       cart : 'cart',
-      removeCart : 'remove/product'
+      removeCart : 'remove/product',
+      wishlist : 'wishlist',
+      shippingAddress : 'shippingAddress',
+      defaultAddress : 'defaultAddress',
     },
     location: {
       pincode: "pincode",

@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { FaEye, FaRegHeart, FaRegStar, FaStar } from "react-icons/fa";
 import { useQuery } from "@tanstack/react-query";
-import { deleteCartApi, getCartApi, getProductLandingApi, postAddCartApi } from "../../../api-service/landingApi";
+import { getProductLandingApi, getWishListApi, postWishListApi } from "../../../api-service/landingApi";
 import { LuIndianRupee } from "react-icons/lu";
-import { MdOutlineShoppingBag } from "react-icons/md";
+// import { MdOutlineShoppingBag } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import SignUpModal from "../../../components/signUpModal";
 import toast from "react-hot-toast";
@@ -23,7 +23,8 @@ function DayofthedealSection() {
 
     const navigate = useNavigate();
 
-    const [cartItems, setCartItems] = useState<any>([]);
+    // const [cartItems, setCartItems] = useState<any>([]);
+    const [wishlistItems, setWishlistItems] = useState<any>([]);
 
     const calculateTimeLeft = (): TimeLeft => {
         const targetDate = new Date("2024-10-31T00:00:00").getTime(); 
@@ -68,67 +69,94 @@ function DayofthedealSection() {
 
     const productData = getproductData?.data?.data?.result?.rows
 
-     // for wishList function
-     const handleWishList = () => {
-        if(hasToken){
-            console.log("already logged in----------");
-        }else{
-            setNoToken(true)
-        }
-    }
+   
 
     // for my cart function
-    const handleMyCart = async (data : any, cartProduct :any) => {
+    // const handleMyCart = async (data : any, cartProduct :any) => {
+        
+    //     if(hasToken){
+    //         const inCart = cartItems.some((item:any) => item?.product?._id === data?._id)
+
+    //         if (inCart) {
+                
+    //             const deleteApi = await deleteCartApi(cartData?._id,cartProduct?._id)
+    //             if(deleteApi?.status === 200){
+    //                 toast.success('Product Removed From Cart.')
+    //                 setCartItems(cartItems.filter((item:any) => item?.product?._id !== data?._id));
+    //                 getproductData?.refetch()
+    //                 getCartData?.refetch()
+    //             }
+    //         }   
+    //         else {
+    //             console.log("not in cart");
+    //                 const payload = {
+    //                     product: data?._id,
+    //                     variant: data?.variants ? data?.variants[0]?._id : "",
+    //                     quantity: 1,
+    //                     singlePrice: data?.sizes[0]?.offerPrice
+    //                 }
+    //                 const cartApi = await postAddCartApi(payload)
+    //                 if(cartApi?.status === 200){
+    //                     toast.success('Product added to Cart.')
+    //                     setCartItems([...cartItems, { product: data }]);
+    //                     getproductData?.refetch()
+    //                     getCartData?.refetch()
+    //                 }
+    //           }
+    //     }else{
+    //         setNoToken(true)
+    //     }
+    // }
+
+    // for Wishlist api function
+    const handleWishlist = async (data : any) => {
         
         if(hasToken){
-            const inCart = cartItems.some((item:any) => item?.product?._id === data?._id)
-
-            if (inCart) {
-                
-                const deleteApi = await deleteCartApi(cartData?._id,cartProduct?._id)
-                if(deleteApi?.status === 200){
-                    toast.success('Product Removed From Cart.')
-                    setCartItems(cartItems.filter((item:any) => item?.product?._id !== data?._id));
-                    getproductData?.refetch()
-                    getCartData?.refetch()
-                }
-            }
-            else {
-                console.log("not in cart");
-                    const payload = {
-                        product: data?._id,
-                        variant: data?.variants ? data?.variants[0]?._id : "",
-                        quantity: 1,
-                        singlePrice: data?.sizes[0]?.offerPrice
-                    }
-                    const cartApi = await postAddCartApi(payload)
-                    if(cartApi?.status === 200){
-                        toast.success('Product added to Cart.')
-                        setCartItems([...cartItems, { product: data }]);
-                        getproductData?.refetch()
-                        getCartData?.refetch()
-                    }
-              }
-        }else{
-            setNoToken(true)
+        const payload = {
+            product : data?._id
         }
+        const wishlistApi = await postWishListApi(payload)
+        if(wishlistApi?.status === 200){
+            toast.success(wishlistApi?.data?.msg)
+            getWishListData?.refetch()
+        }
+    }else{
+        setNoToken(true)
+    }
     }
 
     // for cart show in ui 
-    const getCartData = useQuery({
-        queryKey : ['getCartData'],
-        queryFn : () => getCartApi(``),
-        enabled : !!hasToken
-    })
+    // const getCartData = useQuery({
+    //     queryKey : ['getCartData'],
+    //     queryFn : () => getCartApi(``),
+    //     enabled : !!hasToken
+    // })
 
-    const cartData = getCartData?.data?.data?.result
+    // const cartData = getCartData?.data?.data?.result
 
-   useEffect(() => {
-    const inCart = cartData?.products?.map((item:any) => item) || [];
-    setCartItems(inCart);
-}, [cartData]);
+//    useEffect(() => {
+//     const inCart = cartData?.products?.map((item:any) => item) || [];
+//     setCartItems(inCart);
+// }, [cartData]);
 
+
+   // for wishList show in ui 
+   const getWishListData = useQuery({
+    queryKey : ['getWishListData'],
+    queryFn : () => getWishListApi(``),
+    enabled : !!hasToken
+})
+
+const wishListData = getWishListData?.data?.data?.result
+
+useEffect(() => {
+    const inWishlist = wishListData?.map((item:any) => item?.product) || [];
+    setWishlistItems(inWishlist);
+}, [wishListData]);
       
+
+
+
     return (
         <>
          <div className="px-[4%] my-8">
@@ -157,16 +185,18 @@ function DayofthedealSection() {
                                 <div className="hidden group-hover:flex absolute bottom-2 z-50 left-[50%] transform translate-x-[-50%] translate-y-0 transition-all duration-500 ease-in-out group-hover:-translate-y-1">
                                     <div className="flex items-center gap-2">
                                     <FaRegHeart
-                                onClick={()=>handleWishList()}
-                                 className=" bg-white border border-primaryColor/10 w-9 h-9 p-[6px] rounded-lg flex justify-center items-center hover:text-white hover:bg-primaryColor hover:transform hover:transition-all hover:duration-200" />
-                                        <MdOutlineShoppingBag 
+                                      onClick={()=>{
+                                        handleWishlist(idx)
+                                      }}
+                                       className={` border border-primaryColor/10 w-9 h-9 p-[6px] rounded-lg flex justify-center items-center  ${wishlistItems.some((item:any) => item?._id === idx?._id) ? "bg-red-500 text-white" : "bg-white hover:text-white hover:bg-primaryColor hover:transform hover:transition-all hover:duration-200"}`} />
+                                        {/* <MdOutlineShoppingBag 
                                           onClick={() => {
                                             console.log(cartItems.some((item:any) => item?.product?._id === idx?._id));
                                             
                                             const cartItem = cartItems.find((item:any) => item?.product?._id === idx?._id);
                                             handleMyCart(idx, cartItem ? cartItem : null);
                                         }}
-                                        className={`  border border-primaryColor/10 w-9 h-9 p-[6px] rounded-lg flex justify-center items-center hover:text-white hover:bg-primaryColor hover:transform hover:transition-all hover:duration-200 ${cartItems.some((item:any) => item?.product?._id === idx?._id) ? "bg-red-500 text-white" : "bg-white"}`} />
+                                        className={`border border-primaryColor/10 w-9 h-9 p-[6px] rounded-lg flex justify-center items-center  ${cartItems.some((item:any) => item?.product?._id === idx?._id) ? "bg-red-500 text-white" : "bg-white hover:text-white hover:bg-primaryColor hover:transform hover:transition-all hover:duration-200"}`} /> */}
                                         <FaEye 
                                         onClick={()=>navigate(`/products/${idx?._id}`)}
                                         className=" bg-white border border-primaryColor/10 w-9 h-9 p-[6px] rounded-lg flex justify-center items-center hover:text-white hover:bg-primaryColor hover:transform hover:transition-all hover:duration-200" />
@@ -200,7 +230,7 @@ function DayofthedealSection() {
 
 
         {noToken && (
-        <div className="fixed inset-0 z-50 flex justify-center bg-black bg-opacity-50">
+        <div className="fixed inset-0 z-[1000] flex justify-center bg-black bg-opacity-50">
         <div className="bg-white rounded-lg max-w-lg 2xl:max-w-xl w-full flex flex-col max-h-[90%] h-fit  animate-slideTop">
           <div className="flex items-center justify-between px-4 pt-4 pb-3 border-b">
             <h2 className="text-lg font-medium">SignUp Modal</h2>

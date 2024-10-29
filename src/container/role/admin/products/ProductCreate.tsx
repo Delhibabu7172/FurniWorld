@@ -77,8 +77,8 @@ useEffect(()=>{
     setValue('productColour',productData?.colors)
 
     setValue('specifications',productData?.specifications)
-    setValue('specifications.furnitures.assemblyRequired',productData?.specifications?.furnitures?.assemblyRequired === true ? "true" : 'false')
-    setValue('specifications.kitchen.dishwasherSafe',productData?.specifications?.kitchen?.dishwasherSafe === true ? "true" : 'false')
+    // setValue('specifications.furnitures.assemblyRequired',productData?.specifications?.furnitures?.assemblyRequired === true ? "true" : 'false')
+    // setValue('specifications.kitchen.dishwasherSafe',productData?.specifications?.kitchen?.dishwasherSafe === true ? "true" : 'false')
   }
 },[getProductData?.data?.data?.result])
 
@@ -130,12 +130,12 @@ useEffect(()=>{
           unit : yup.string().optional(),
         }).nullable(),
         weightCapacity : yup.string().optional(),// e.g., 150 (in kg)
-        assemblyRequired : yup.string().optional(),
+        // assemblyRequired : yup.string().optional(),
         finishType : yup.string().optional(),// e.g., "Matte", "Glossy"
       }).nullable(),
       kitchen : yup.object({
         material : yup.string().optional(),// e.g., "Stainless Steel", "Plastic"
-        dishwasherSafe: yup.string().optional(),
+        // dishwasherSafe: yup.string().optional(),
         heatResistance : yup.string().optional(),// e.g., "Up to 400°F"
         setIncludes : yup.array().of(yup.string().optional()),// e.g., ["Spoon", "Fork", "Knife"]
       }).nullable()
@@ -151,14 +151,7 @@ defaultValues:{
   productImages : [],
   productColour: [{name : '' , code : '' , images : [{ img_url : '', name : '' }]}],
   productSize: [{name : '' , MRP : '', offer : '' , offerPrice : ''}],
-  specifications: {
-    kitchen: {
-      dishwasherSafe: '', // initialize the field with an empty string
-    },
-    electronics: {
-
-    }
-  },
+ 
 }
 })
 
@@ -390,7 +383,7 @@ console.log(data);
             unit: data?.specifications?.furnitures?.dimensions?.unit,
           },
           weightCapacity: Number(data?.specifications?.furnitures?.weightCapacity),
-          assemblyRequired: data?.specifications?.furnitures?.assemblyRequired,
+          // assemblyRequired: data?.specifications?.furnitures?.assemblyRequired,
           finishType: data?.specifications?.furnitures?.finishType,
         },
       }
@@ -398,7 +391,7 @@ console.log(data);
     ? {
         kitchen: {
           material: data?.specifications?.kitchen?.material,
-          dishwasherSafe: data?.specifications?.kitchen?.dishwasherSafe,
+          // dishwasherSafe: data?.specifications?.kitchen?.dishwasherSafe,
           heatResistance: data?.specifications?.kitchen?.heatResistance,
           setIncludes: setIncludesList,
         },
@@ -734,7 +727,7 @@ console.log(data);
                                   <p className="text-red-500">{errors?.specifications?.furnitures?.weightCapacity.message}</p>
                               )}
                           </div>
-                          <div className="flex flex-col col-span-3">
+                          {/* <div className="flex flex-col col-span-3">
                           <label htmlFor="contact-lead-score" className="font-medium ">Assembly Required</label>
                           <div className="flex items-center p-3 bg-gray-100 border rounded-lg">
                             <label className="flex items-center mr-3">
@@ -759,7 +752,7 @@ console.log(data);
                               {errors?.specifications?.furnitures?.assemblyRequired && (
                                   <p className="text-red-500">{errors?.specifications?.furnitures?.assemblyRequired.message}</p>
                               )}
-                          </div>
+                          </div> */}
                           <div className="flex flex-col col-span-3">
                           <label htmlFor="contact-lead-score" className="font-medium ">Finish Type</label>
                               <input
@@ -930,7 +923,7 @@ console.log(data);
                                   <p className="text-red-500">{errors?.specifications?.kitchen?.material.message}</p>
                               )}
                           </div>
-                          <div className="flex flex-col col-span-3">
+                          {/* <div className="flex flex-col col-span-3">
                               <label htmlFor="contact-lead-score" className="font-medium">
                                 Dishwasher Safe 
                               </label>
@@ -957,7 +950,7 @@ console.log(data);
                               {errors?.specifications?.kitchen?.dishwasherSafe && (
                                 <p className="text-red-500">{errors?.specifications?.kitchen?.dishwasherSafe.message}</p>
                               )}
-                            </div>
+                            </div> */}
                           <div className="flex flex-col col-span-3">
                           <label htmlFor="contact-lead-score" className="font-medium ">Heat Resistance</label>
                               <input

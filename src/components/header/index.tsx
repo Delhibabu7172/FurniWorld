@@ -9,8 +9,9 @@ import { getProfileApi } from "../../api-service/authApi"
 import { FiLogOut } from "react-icons/fi"
 import altImg from "../../assets/images/header/1077114.png"
 import { useNavigate } from "react-router-dom"
-import { getCartApi } from "../../api-service/landingApi"
+import { getCartApi, getWishListApi } from "../../api-service/landingApi"
 import CartModal from "../../container/header/CartModal"
+import { FaHeart } from "react-icons/fa"
 
 function Header() {
 
@@ -75,6 +76,17 @@ function Header() {
 
   const cartData = getCartData?.data?.data?.result
 
+   // for wishlist show in ui 
+   const getWishlistData = useQuery({
+    queryKey: ['getWishlistData'],
+    queryFn: () => getWishListApi(``),
+    enabled: !!hasToken
+  })
+
+  const wishlistData = getWishlistData?.data?.data?.result
+  console.log(wishlistData?.length);
+  
+
   return (
     <>
       <div className="flex items-center justify-between  py-2 md:py-[15px] px-[3%] md:px-[4%] font-Lexend">
@@ -113,11 +125,24 @@ function Header() {
             </button>
           )}
 
-          <div className="flex items-center gap-1">
+          {/* <div className="flex items-center gap-1">
             <img src={likeImg} className="w-3 h-3 md:w-5 md:h-5 md:me-1" alt="" />
             <p>WishList</p>
+          </div> */}
+          <div className={`flex items-center  cursor-pointer ${wishlistData?.length > 0 ? "gap-2" : "gap-1"}`}
+          onClick={()=>navigate('/wishlist')}>
+            <div className="relative">
+              <img src={likeImg} className="w-3 h-3 md:w-6 md:h-5 md:me-1" alt="" />
+              {wishlistData?.length > 0 && (
+                <p className="absolute -top-2 -right-2 bg-yellow-400 text-xs rounded-full h-[17px] w-[17px] flex justify-center items-center">
+                  {wishlistData?.length > 10 ? "10+" : wishlistData?.length}
+                </p>
+              )}
+            </div>
+            <p>WishList</p>
+
           </div>
-          <div className="flex items-center gap-2 cursor-pointer"
+          <div className={`flex items-center gap-2 cursor-pointer ${cartData?.products?.length > 0 ? "gap-2" : "gap-1"}`}
           onClick={()=>setOpenCartModal(true)}>
             <div className="relative">
               <img src={cartImg} className="w-3 h-3 md:w-5 md:h-5 md:me-1" alt="" />
@@ -142,7 +167,9 @@ function Header() {
               </div>
               {openUser && (
                 <div className="border-[1px] border-black/20 bg-white absolute top-14 z-50 w-full" ref={userRef}>
-                  <div className="flex items-center gap-2 border-b-[1px] py-1 px-2 hover:bg-primaryColor/5 cursor-pointer">
+                  {profileData?.role?.name === 'ADMIN' ? (
+                    <>
+                       <div className="flex items-center gap-2 border-b-[1px] py-1 px-2 hover:bg-primaryColor/5 cursor-pointer">
                     <BiUser />
                     <p>Profile</p>
                   </div>
@@ -151,6 +178,34 @@ function Header() {
                     <FiLogOut />
                     <p>Logout</p>
                   </div>
+                    </>
+                  ) : profileData?.role?.name === 'CUSTOMER' ? (
+                    <>
+                     <div className="flex items-center gap-2 border-b-[1px] py-1 px-2 hover:bg-primaryColor/5 cursor-pointer">
+                    <BiUser />
+                    <p>Orders</p>
+                  </div>
+                  <div className="flex items-center gap-2 border-b-[1px] py-1 px-2 hover:bg-primaryColor/5 cursor-pointer"
+                  onClick={()=>{navigate('/address'),setOpenUser(false)}}>
+                    <BiUser />
+                    <p>Address</p>
+                  </div>
+                  <div className="flex items-center gap-2 border-b-[1px] py-1 px-2 hover:bg-primaryColor/5 cursor-pointer">
+                    <BiUser />
+                    <p>Account Details</p>
+                  </div>
+                  <div className="flex items-center gap-2 border-b-[1px] py-1 px-2 hover:bg-primaryColor/5 cursor-pointer">
+                    <FaHeart />
+                    <p>Wishlist</p>
+                  </div>
+                  <div className="flex items-center gap-2 px-2 py-1 cursor-pointer hover:bg-primaryColor/5"
+                    onClick={handleLogout}>
+                    <FiLogOut />
+                    <p>Logout</p>
+                  </div>
+                    </>
+                  ) : ""}
+                 
                 </div>
               )}
 

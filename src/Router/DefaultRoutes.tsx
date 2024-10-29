@@ -1,3 +1,6 @@
+import CartPage from "../container/header/CartPage";
+import SavedAddress from "../container/header/SavedAddress";
+import WishList from "../container/header/Wishlist";
 import App from "../container/homePage/App";
 import CategoryHome from "../container/homePage/category";
 import ContactUs from "../container/homePage/contactUs";
@@ -24,5 +27,17 @@ export const DefaultRoutes = [
     {
         path: 'contactUs',
         element: <ContactUs/>
-    }
+    },
+    {
+        path: 'wishlist',
+        element: <WishList/>
+    },
+    {
+        path: 'cart',
+        element: <CartPage/>
+    },
+    {
+        path: 'address',
+        element: <SavedAddress/>
+    },
 ]

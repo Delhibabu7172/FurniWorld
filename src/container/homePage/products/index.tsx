@@ -1,17 +1,17 @@
 import { useQuery } from "@tanstack/react-query"
-import { deleteCartApi, getCartApi, getCategoryLandingApi, getProductLandingApi, postAddCartApi } from "../../../api-service/landingApi"
+import { getCategoryLandingApi, getProductLandingApi } from "../../../api-service/landingApi"
 import { BsArrowRight } from "react-icons/bs"
-import { MdOutlineShoppingBag } from "react-icons/md"
+import { MdOutlineKeyboardDoubleArrowLeft, MdOutlineKeyboardDoubleArrowRight } from "react-icons/md"
 import { FaEye, FaRegHeart, FaRegStar, FaStar } from "react-icons/fa"
 import { LuIndianRupee } from "react-icons/lu"
-import { useEffect, useState } from "react"
+import {  useState } from "react"
 import Pagination from "../../../components/pagination"
 import { Circles } from "react-loader-spinner"
 import { BiSearch } from "react-icons/bi"
 import NoDataFound from "../../../components/noDataFound"
 import { useLocation, useNavigate } from "react-router-dom"
 import SignUpModal from "../../../components/signUpModal"
-import toast from "react-hot-toast"
+// import toast from "react-hot-toast"
 
 
 function AuthProducts() {
@@ -19,7 +19,7 @@ function AuthProducts() {
     const hasToken  = localStorage.getItem('access-token')
     const [noToken , setNoToken] = useState(false)
 
-    const [cartItems, setCartItems] = useState<any>([]);    
+    // const [cartItems, setCartItems] = useState<any>([]);    
 
     const location = useLocation();
     const navigate = useNavigate();
@@ -63,55 +63,55 @@ const handlePageChange = (page: any) => {
     }
 
     // for my cart function
-    const handleMyCart = async (data : any, cartProduct :any) => {
+    // const handleMyCart = async (data : any, cartProduct :any) => {
         
-        if(hasToken){
-            const inCart = cartItems.some((item:any) => item?.product?._id === data?._id)
+    //     if(hasToken){
+    //         const inCart = cartItems.some((item:any) => item?.product?._id === data?._id)
 
-            if (inCart) {
+    //         if (inCart) {
                 
-                const deleteApi = await deleteCartApi(cartData?._id,cartProduct?._id)
-                if(deleteApi?.status === 200){
-                    toast.success('Product Removed From Cart.')
-                    setCartItems(cartItems.filter((item:any) => item?.product?._id !== data?._id));
-                    getproductData?.refetch()
-                    getCartData?.refetch()
-                }
-            }
-            else {
-                console.log("not in cart");
-                    const payload = {
-                        product: data?._id,
-                        variant: data?.variants ? data?.variants[0]?._id : "",
-                        quantity: 1,
-                        singlePrice: data?.sizes[0]?.offerPrice
-                    }
-                    const cartApi = await postAddCartApi(payload)
-                    if(cartApi?.status === 200){
-                        toast.success('Product added to Cart.')
-                        setCartItems([...cartItems, { product: data }]);
-                        getproductData?.refetch()
-                        getCartData?.refetch()
-                    }
-              }
-        }else{
-            setNoToken(true)
-        }
-    }
+    //             const deleteApi = await deleteCartApi(cartData?._id,cartProduct?._id)
+    //             if(deleteApi?.status === 200){
+    //                 toast.success('Product Removed From Cart.')
+    //                 setCartItems(cartItems.filter((item:any) => item?.product?._id !== data?._id));
+    //                 getproductData?.refetch()
+    //                 getCartData?.refetch()
+    //             }
+    //         }
+    //         else {
+    //             console.log("not in cart");
+    //                 const payload = {
+    //                     product: data?._id,
+    //                     variant: data?.variants ? data?.variants[0]?._id : "",
+    //                     quantity: 1,
+    //                     singlePrice: data?.sizes[0]?.offerPrice
+    //                 }
+    //                 const cartApi = await postAddCartApi(payload)
+    //                 if(cartApi?.status === 200){
+    //                     toast.success('Product added to Cart.')
+    //                     setCartItems([...cartItems, { product: data }]);
+    //                     getproductData?.refetch()
+    //                     getCartData?.refetch()
+    //                 }
+    //           }
+    //     }else{
+    //         setNoToken(true)
+    //     }
+    // }
 
     // for cart show in ui 
-    const getCartData = useQuery({
-        queryKey : ['getCartData'],
-        queryFn : () => getCartApi(``),
-        enabled : !!hasToken
-    })
+//     const getCartData = useQuery({
+//         queryKey : ['getCartData'],
+//         queryFn : () => getCartApi(``),
+//         enabled : !!hasToken
+//     })
 
-    const cartData = getCartData?.data?.data?.result
+//     const cartData = getCartData?.data?.data?.result
 
-   useEffect(() => {
-    const inCart = cartData?.products?.map((item:any) => item) || [];
-    setCartItems(inCart);
-}, [cartData]);
+//    useEffect(() => {
+//     const inCart = cartData?.products?.map((item:any) => item) || [];
+//     setCartItems(inCart);
+// }, [cartData]);
 
   return (
     <>
@@ -184,14 +184,14 @@ const handlePageChange = (page: any) => {
                                     <FaRegHeart
                                       onClick={()=>handleWishList()}
                                        className=" bg-white border border-primaryColor/10 w-9 h-9 p-[6px] rounded-lg flex justify-center items-center hover:text-white hover:bg-primaryColor hover:transform hover:transition-all hover:duration-200" />
-                                        <MdOutlineShoppingBag 
+                                        {/* <MdOutlineShoppingBag 
                                           onClick={() => {
                                             console.log(cartItems.some((item:any) => item?.product?._id === idx?._id));
                                             
                                             const cartItem = cartItems.find((item:any) => item?.product?._id === idx?._id);
                                             handleMyCart(idx, cartItem ? cartItem : null);
                                         }}
-                                        className={`  border border-primaryColor/10 w-9 h-9 p-[6px] rounded-lg flex justify-center items-center hover:text-white hover:bg-primaryColor hover:transform hover:transition-all hover:duration-200 ${cartItems.some((item:any) => item?.product?._id === idx?._id) ? "bg-red-500 text-white" : "bg-white"}`} />
+                                        className={`  border border-primaryColor/10 w-9 h-9 p-[6px] rounded-lg flex justify-center items-center hover:text-white hover:bg-primaryColor hover:transform hover:transition-all hover:duration-200 ${cartItems.some((item:any) => item?.product?._id === idx?._id) ? "bg-red-500 text-white" : "bg-white"}`} /> */}
                                         <FaEye 
                                         onClick={()=>navigate(`/products/${idx?._id}`)}
                                         className=" bg-white border border-primaryColor/10 w-9 h-9 p-[6px] rounded-lg flex justify-center items-center hover:text-white hover:bg-primaryColor hover:transform hover:transition-all hover:duration-200" />
@@ -220,7 +220,7 @@ const handlePageChange = (page: any) => {
         )}
         
          </div>
-          <div className="box-footer">
+          <div className="box-footer mt-4">
                 <div className="sm:flex items-center">
                   <div className="text-defaulttextcolor/70">
                     Showing {(currentPage) * itemsPerPage + 1} to{' '}
@@ -231,10 +231,10 @@ const handlePageChange = (page: any) => {
 
                   <div className="ms-auto">
                     <nav aria-label="" className="pagination-style-1">
-                      <ul className="ti-pagination mb-0">
+                      <ul className="ti-pagination flex items-center justify-center gap-2">
                         <li className={` ${currentPage === 0 ? 'disabled' : ''} rtl:rotate-180`}>
-                          <button aria-label="Previous" className="page-link " onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 0}>
-                            <i className="ri-arrow-left-s-line align-middle"></i>
+                          <button aria-label="Previous" className="page-link flex justify-center items-center" onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 0}>
+                            <MdOutlineKeyboardDoubleArrowLeft />
                           </button>
                         </li>
                         <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange}/>
@@ -248,8 +248,8 @@ const handlePageChange = (page: any) => {
                           </li>
                         ))} */}
                         <li className={` ${currentPage === totalPages - 1 ? 'disabled' : ''} rtl:rotate-180`}>
-                          <button aria-label="Next" className="page-link" onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages - 1}>
-                            <i className="ri-arrow-right-s-line align-middle"></i>
+                          <button aria-label="Next" className="page-link flex justify-center items-center" onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages - 1}>
+                          <MdOutlineKeyboardDoubleArrowRight />
                           </button>
                         </li>
                       </ul>

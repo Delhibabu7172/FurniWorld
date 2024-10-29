@@ -84,7 +84,8 @@ function CartModal({ openModal , handleClose  } : any) {
                 </div>
               ))}
               <div className="flex items-center gap-5 w-full px-5 py-3">
-                          <button className="border border-primaryColor py-2 w-full rounded-md hover:bg-primaryColor hover:text-white">View Cart</button>
+                          <button className="border border-primaryColor py-2 w-full rounded-md hover:bg-primaryColor hover:text-white"
+                          onClick={()=>{navigate('/cart'),handleClose()}}>View Cart</button>
                           <button className="w-full border border-primaryColor py-2 rounded-md bg-primaryColor text-white hover:bg-yellow-400 hover:text-black hover:border-yellow-400">CheckOut</button>
                         </div>
               </>

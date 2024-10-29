@@ -1,6 +1,8 @@
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
-import banner1 from "../../../assets/images/home/bannerSection/banner1.png"
+import banner1 from "../../../assets/images/home/bannerSection/furnitures.png"
+import banner2 from "../../../assets/images/home/bannerSection/banner1.png"
+import banner3 from "../../../assets/images/home/bannerSection/electronics.png"
 import styleImg from "../../../assets/images/home/bannerSection/Image.png"
 import styleBottomImg from "../../../assets/images/home/bannerSection/Container.png"
 
@@ -30,10 +32,10 @@ function BannerSection() {
                         <img src={banner1} alt="" />
                 </div>
                 <div className="">
-                    <img src={banner1} className="bg-no-repeat bg-cover"/>
+                    <img src={banner2} className="bg-no-repeat bg-cover"/>
                 </div>
                 <div className="">
-                    <img src={banner1} className="bg-no-repeat bg-cover"/>
+                    <img src={banner3} className="bg-no-repeat bg-cover"/>
                 </div>
             </Carousel>
             <div className="absolute bottom-2 left-16">
