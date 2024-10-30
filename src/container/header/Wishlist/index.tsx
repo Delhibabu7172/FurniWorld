@@ -1,13 +1,13 @@
 import { FaEye, FaRegCircle, FaRegStar, FaStar } from "react-icons/fa";
 import Pageheader from "../../../components/PageHeader"
-import { MdOutlineShoppingBag } from "react-icons/md";
+// import { MdOutlineShoppingBag } from "react-icons/md";
 import { LuIndianRupee } from "react-icons/lu";
 import { useQuery } from "@tanstack/react-query";
-import { deleteCartApi, getCartApi, getWishListApi, postAddCartApi, postWishListApi } from "../../../api-service/landingApi";
-import { useEffect, useState } from "react";
+import {   getWishListApi, postWishListApi } from "../../../api-service/landingApi";
+// import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-
+import whilistImg from "../../../assets/images/NoData/No data-pana.svg"
 
 function WishList() {
 
@@ -23,7 +23,7 @@ function WishList() {
   
       const navigate = useNavigate();
   
-      const [cartItems, setCartItems] = useState<any>([]);
+    //   const [cartItems, setCartItems] = useState<any>([]);
 
     const getWishlistData = useQuery({
         queryKey: ['getWishlistData'],
@@ -34,37 +34,37 @@ function WishList() {
       const wishlistData = getWishlistData?.data?.data?.result
 
     // for my cart function
-    const handleMyCart = async (data : any, cartProduct :any) => {
+    // const handleMyCart = async (data : any, cartProduct :any) => {
     
-            const inCart = cartItems.some((item:any) => item?.product?._id === data?._id)
+    //         const inCart = cartItems.some((item:any) => item?.product?._id === data?._id)
 
-            if (inCart) {
+    //         if (inCart) {
                 
-                const deleteApi = await deleteCartApi(cartData?._id,cartProduct?._id)
-                if(deleteApi?.status === 200){
-                    toast.success('Product Removed From Cart.')
-                    setCartItems(cartItems.filter((item:any) => item?.product?._id !== data?._id));
-                    getWishlistData?.refetch()
-                    getCartData?.refetch()
-                }
-            }   
-            else {
-                console.log("not in cart");
-                    const payload = {
-                        product: data?._id,
-                        variant: data?.variants ? data?.variants[0]?._id : "",
-                        quantity: 1,
-                        singlePrice: data?.sizes[0]?.offerPrice
-                    }
-                    const cartApi = await postAddCartApi(payload)
-                    if(cartApi?.status === 200){
-                        toast.success('Product added to Cart.')
-                        setCartItems([...cartItems, { product: data }]);
-                        getWishlistData?.refetch()
-                        getCartData?.refetch()
-                    }
-              }
-    }
+    //             const deleteApi = await deleteCartApi(cartData?._id,cartProduct?._id)
+    //             if(deleteApi?.status === 200){
+    //                 toast.success('Product Removed From Cart.')
+    //                 setCartItems(cartItems.filter((item:any) => item?.product?._id !== data?._id));
+    //                 getWishlistData?.refetch()
+    //                 getCartData?.refetch()
+    //             }
+    //         }   
+    //         else {
+    //             console.log("not in cart");
+    //                 const payload = {
+    //                     product: data?._id,
+    //                     variant: data?.variants ? data?.variants[0]?._id : "",
+    //                     quantity: 1,
+    //                     singlePrice: data?.sizes[0]?.offerPrice
+    //                 }
+    //                 const cartApi = await postAddCartApi(payload)
+    //                 if(cartApi?.status === 200){
+    //                     toast.success('Product added to Cart.')
+    //                     setCartItems([...cartItems, { product: data }]);
+    //                     getWishlistData?.refetch()
+    //                     getCartData?.refetch()
+    //                 }
+    //           }
+    // }
 
     // for Wishlist api function
     const handleWishlist = async (data : any) => {
@@ -80,24 +80,24 @@ function WishList() {
     }
 
     // for cart show in ui 
-    const getCartData = useQuery({
-        queryKey : ['getCartData'],
-        queryFn : () => getCartApi(``),
-        enabled : !!hasToken
-    })
+//     const getCartData = useQuery({
+//         queryKey : ['getCartData'],
+//         queryFn : () => getCartApi(``),
+//         enabled : !!hasToken
+//     })
 
-    const cartData = getCartData?.data?.data?.result
+//     const cartData = getCartData?.data?.data?.result
 
-   useEffect(() => {
-    const inCart = cartData?.products?.map((item:any) => item) || [];
-    setCartItems(inCart);
-}, [cartData]);
+//    useEffect(() => {
+//     const inCart = cartData?.products?.map((item:any) => item) || [];
+//     setCartItems(inCart);
+// }, [cartData]);
 
   return (
     <div className="mt-3">
       <Pageheader data={page}/>
       <div className="px-[4%]">
-      <div className="grid grid-cols-12 gap-3 mt-5">
+      <div className="grid grid-cols-12 gap-3 my-5">
         {hasToken ? (
              wishlistData?.length > 0 ? (
                 wishlistData?.map((idx:any,index:number) => (
@@ -108,14 +108,14 @@ function WishList() {
                             <div className="hidden group-hover:flex absolute bottom-2 z-50 left-[50%] transform translate-x-[-50%] translate-y-0 transition-all duration-500 ease-in-out group-hover:-translate-y-1">
                                 <div className="flex items-center gap-2">
                                 
-                                    <MdOutlineShoppingBag 
+                                    {/* <MdOutlineShoppingBag 
                                       onClick={() => {
                                         console.log(cartItems.some((item:any) => item?.product?._id === idx?.product?._id));
                                         
                                         const cartItem = cartItems.find((item:any) => item?.product?._id === idx?.product?._id);
                                         handleMyCart(idx, cartItem ? cartItem : null);
                                     }}
-                                    className={`border border-primaryColor/10 w-9 h-9 p-[6px] rounded-lg flex justify-center items-center  ${cartItems.some((item:any) => item?.product?._id === idx?.product?._id) ? "bg-red-500 text-white" : "bg-white hover:text-white hover:bg-primaryColor hover:transform hover:transition-all hover:duration-200"}`} />
+                                    className={`border border-primaryColor/10 w-9 h-9 p-[6px] rounded-lg flex justify-center items-center  ${cartItems.some((item:any) => item?.product?._id === idx?.product?._id) ? "bg-red-500 text-white" : "bg-white hover:text-white hover:bg-primaryColor hover:transform hover:transition-all hover:duration-200"}`} /> */}
                                     <FaEye 
                                     onClick={()=>navigate(`/products/${idx?._id}`)}
                                     className=" bg-white border border-primaryColor/10 w-9 h-9 p-[6px] rounded-lg flex justify-center items-center hover:text-white hover:bg-primaryColor hover:transform hover:transition-all hover:duration-200" />
@@ -145,14 +145,17 @@ function WishList() {
             </div>
                 ))
             ) : (
-                <div className="flex justify-center items-center col-span-12 mt-10">
+                <div className="flex flex-col justify-center items-center col-span-12 mt-8">
+                     <img src={whilistImg} className="w-52" alt="" />
                     <p className="text-center">No Data Found</p>
                 </div>
             )
         ) : (
-            <div className="col-span-12 text-center">
+            <div className="col-span-12 text-center flex flex-col justify-center items-center gap-2 shadow-2xl mb-5 py-4">
+                <img src={whilistImg} className="w-52" alt="" />
                 <p>No Wishlist is There....</p>
-                <p>Please Continue to Purchase</p>
+                <p className="bg-primaryColor text-white hover:bg-yellow-400 hover:text-black px-3 py-2 rounded-md cursor-pointer"
+                onClick={()=>navigate('/products')}>Please Continue to Purchase</p>
             </div>
         )} 
                

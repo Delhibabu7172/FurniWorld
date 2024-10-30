@@ -152,9 +152,10 @@ function SignUpModal() {
         
 
             <div className="px-5 py-4 font-Lexend">
+                
             <form action="">
                 <div className="grid grid-cols-12 gap-y-4 mt-4">
-                    <div className='col-span-12 flex items-center gap-2'>
+                    <div className='col-span-12 flex items-center justify-center gap-2'>
                         <img src={newLogo} alt="" />
                         <p className='font-bold text-lg'>FURNI WORLD</p>
                     </div>
@@ -275,12 +276,6 @@ function SignUpModal() {
                     </div>
                         </>
                     )}
-
-
-                    <div className='col-span-12'>
-                        <p className='text-sm font-extralight'>Already have an Account. <span className='underline cursor-pointer font-medium text-primaryColor'
-                        onClick={()=>{setOpenLogin(true)}}>SignIn</span></p>
-                    </div>
                 </div>
             </form>
         </div>

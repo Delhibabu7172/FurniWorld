@@ -7,6 +7,7 @@ import { LuIndianRupee } from "react-icons/lu";
 import { useNavigate } from "react-router-dom";
 import SignUpModal from "../../../components/signUpModal";
 import toast from "react-hot-toast";
+import LoginWithoutHeaderModal from "../../../components/LoginModal/LoginWithoutHeader";
 
 interface TimeLeft {
     days: number;
@@ -20,6 +21,7 @@ function DayofthedealSection() {
 
     const hasToken  = localStorage.getItem('access-token')
     const [noToken , setNoToken] = useState(false)
+    const [openLogin , setOpenLogin] = useState(true)
 
     const navigate = useNavigate();
 
@@ -233,7 +235,7 @@ useEffect(() => {
         <div className="fixed inset-0 z-[1000] flex justify-center bg-black bg-opacity-50">
         <div className="bg-white rounded-lg max-w-lg 2xl:max-w-xl w-full flex flex-col max-h-[90%] h-fit  animate-slideTop">
           <div className="flex items-center justify-between px-4 pt-4 pb-3 border-b">
-            <h2 className="text-lg font-medium">SignUp Modal</h2>
+            <h2 className="text-lg font-medium">{openLogin ? 'SignUp' : "Login"} Modal</h2>
             <button
               type="button"
               className="text-gray-600 hover:text-gray-900"
@@ -245,9 +247,28 @@ useEffect(() => {
               </svg>
             </button>
          </div>
-         <div className="overflow-y-scroll hide-scrollbar">
-            <SignUpModal/>
-         </div>
+         {openLogin ? (
+              <>
+              <div className="overflow-y-scroll hide-scrollbar">
+                 <SignUpModal />
+              </div>
+              <div className='col-span-12 px-5 py-3'>
+                             <p className='text-sm font-extralight'>Already have an Account. <span className='underline cursor-pointer font-medium text-primaryColor'
+                             onClick={()=>{setOpenLogin(!openLogin)}}>SignIn</span></p>
+                         </div>
+                         </>
+         ) : (
+            <>
+                      <div className="overflow-y-scroll hide-scrollbar">
+                 <LoginWithoutHeaderModal />
+              </div>
+              <div className='col-span-12 px-5 py-3'>
+                             <p className='text-sm font-extralight'>Create an Account.<span className='underline cursor-pointer font-medium text-primaryColor'
+                             onClick={()=>{setOpenLogin(!openLogin)}}>SignUp</span></p>
+                         </div>
+            </>
+         )}
+       
         </div>
         </div>
         )}

@@ -3,7 +3,6 @@ import likeImg from "../../assets/images/header/Vector (13).png"
 import cartImg from "../../assets/images/header/Vector (14).png"
 import { BiSearch, BiUser, BiUserCircle } from "react-icons/bi"
 import { useEffect, useRef, useState } from "react"
-import LoginModal from "../LoginModal"
 import { useQuery } from "@tanstack/react-query"
 import { getProfileApi } from "../../api-service/authApi"
 import { FiLogOut } from "react-icons/fi"
@@ -12,10 +11,13 @@ import { useNavigate } from "react-router-dom"
 import { getCartApi, getWishListApi } from "../../api-service/landingApi"
 import CartModal from "../../container/header/CartModal"
 import { FaHeart } from "react-icons/fa"
+import SignUpModal from "../signUpModal"
+import LoginWithoutHeaderModal from "../LoginModal/LoginWithoutHeader"
 
 function Header() {
 
-  const [openModal, setOpenModal] = useState(false)
+  const [openLogin , setOpenLogin] = useState(false)
+  const [openModal , setOpenModal] = useState(false)
   const [openUser, setOpenUser] = useState(false)
   const userRef = useRef<HTMLDivElement>(null)
   const navigate = useNavigate()
@@ -228,8 +230,51 @@ function Header() {
       </div> */}
       </div>
 
-      {openModal && <LoginModal openModal={openModal} handleClose={() => setOpenModal(!openModal)} />}
+  
         {openCartModel && <CartModal openModal={openCartModel} handleClose={()=>setOpenCartModal(!openCartModel)}/>}
+
+        {openModal && (
+            <div className="fixed inset-0 z-[1000] flex justify-center bg-black bg-opacity-50">
+            <div className="bg-white rounded-lg max-w-lg 2xl:max-w-xl w-full flex flex-col max-h-[90%] h-fit  animate-slideTop">
+              <div className="flex items-center justify-between px-4 pt-4 pb-3 border-b">
+                <h2 className="text-lg font-medium">{openLogin ? 'SignUp' : "Login"} Modal</h2>
+                <button
+                  type="button"
+                  className="text-gray-600 hover:text-gray-900"
+                  onClick={()=>setOpenModal(!openModal)}
+                >
+                  <span className="sr-only">Close</span>
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+             </div>
+             {openLogin ? (
+                  <>
+                  <div className="overflow-y-scroll hide-scrollbar">
+                     <SignUpModal />
+                  </div>
+                  <div className='col-span-12 px-5 py-3'>
+                                 <p className='text-sm font-extralight'>Already have an Account. <span className='underline cursor-pointer font-medium text-primaryColor'
+                                 onClick={()=>{setOpenLogin(!openLogin)}}>SignIn</span></p>
+                             </div>
+                             </>
+             ) : (
+                <>
+                          <div className="overflow-y-scroll hide-scrollbar">
+                     <LoginWithoutHeaderModal />
+                  </div>
+                  <div className='col-span-12 px-5 py-3'>
+                                 <p className='text-sm font-extralight'>Create an Account.<span className='underline cursor-pointer font-medium text-primaryColor'
+                                 onClick={()=>{setOpenLogin(!openLogin)}}>SignUp</span></p>
+                             </div>
+                </>
+             )}
+           
+            </div>
+            </div>
+        )}
+        
     </>
   )
 }
