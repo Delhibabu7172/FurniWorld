@@ -11,6 +11,7 @@ import { BiSearch } from "react-icons/bi"
 import NoDataFound from "../../../components/noDataFound"
 import { useLocation, useNavigate } from "react-router-dom"
 import SignUpModal from "../../../components/signUpModal"
+import LoginWithoutHeaderModal from "../../../components/LoginModal/LoginWithoutHeader"
 // import toast from "react-hot-toast"
 
 
@@ -19,6 +20,8 @@ function AuthProducts() {
     const hasToken  = localStorage.getItem('access-token')
     const [noToken , setNoToken] = useState(false)
 
+    const [openLogin , setOpenLogin] = useState(true)
+    
     // const [cartItems, setCartItems] = useState<any>([]);    
 
     const location = useLocation();
@@ -116,13 +119,13 @@ const handlePageChange = (page: any) => {
   return (
     <>
     <div className="grid grid-cols-12 gap-3 font-Lexend">
-        <div className="col-span-2 border-r-2 border-t-2 border-b-2 overflow-y-auto ">
+        <div className="col-span-12 overflow-y-auto border-t-2 border-b-2 border-r-2 md:col-span-2 ">
             <div>
-                <p className="text-lg font-bold text-center bg-slate-300 py-3">Categories</p>
+                <p className="py-3 text-lg font-bold text-center bg-slate-300">Categories</p>
                 {categoryData?.length > 0 ? (
-                    <div className="flex flex-col gap-1 px-3 mt-2 mb-2">
+                    <div className="flex items-center gap-1 px-3 mt-2 mb-2 overflow-x-scroll md:flex-col md:items-start">
                     <p
-                      className={` px-2 py-1 cursor-pointer rounded-sm flex justify-between items-center ${selectedCategory === '' ? 'bg-yellow-400' : 'hover:bg-yellow-400'}`}
+                      className={` px-2 py-1 cursor-pointer min-w-32 md:w-full rounded-sm flex justify-between items-center ${selectedCategory === '' ? 'bg-yellow-400' : 'hover:bg-yellow-400'}`}
                       onClick={() => handleCategory('')} // To reset the selected category when "All" is clicked
                     >
                       All {selectedCategory === '' ? <BsArrowRight /> : ""}
@@ -130,7 +133,7 @@ const handlePageChange = (page: any) => {
                     {categoryData?.map((idx: any, index: number) => (
                       <div key={index}>
                         <p
-                          className={`px-2 py-1 cursor-pointer rounded-sm  flex justify-between items-center
+                          className={`px-2 py-1 cursor-pointer min-w-32 md:w-full rounded-sm  flex justify-between items-center
                             ${selectedCategory === idx._id ? 'bg-yellow-400' : 'hover:bg-yellow-400'}`}
                           onClick={() => handleCategory(idx)}
                         >
@@ -142,16 +145,16 @@ const handlePageChange = (page: any) => {
                 ) : ""}
             </div>
         </div>
-        <div className="col-span-10 overflow-y-auto max-h-screen hide-scrollbar">
+        <div className="max-h-screen col-span-12 overflow-y-auto md:col-span-10 hide-scrollbar">
         <div className="px-[2%] my-3">
 
         <div className="flex justify-between gap-4 md:gap-0">
-        <p className="text-transparent text-xl lg:text-2xl xl:text-3xl text-stroke">
+        <p className="text-xl text-transparent lg:text-2xl xl:text-3xl text-stroke">
                     Products
                   </p>
        <div className="relative">
         <input type="search"
-        onChange={(e)=>setSearch(e.target.value)} className="w-64 px-3 py-2 border border-primaryColor rounded-sm outline-none" placeholder="Search Here...."/>
+        onChange={(e)=>setSearch(e.target.value)} className="w-64 px-3 py-2 border rounded-sm outline-none border-primaryColor" placeholder="Search Here...."/>
         <BiSearch className="absolute top-[50%] translate-y-[-50%] right-10"/>
        </div>
     </div>
@@ -175,9 +178,9 @@ const handlePageChange = (page: any) => {
                  <div className="grid grid-cols-12 gap-3 mt-3">
         {productData?.rows?.length > 0 ? (
             productData?.rows?.map((idx:any,index:number) => (
-                <div className="col-span-12 md:col-span-6 lg:col-span-4 2xl:col-span-3 p-2 border rounded-sm border-primaryColor/10 group" key={index}>
+                <div className="col-span-12 p-2 border rounded-sm md:col-span-6 lg:col-span-4 2xl:col-span-3 border-primaryColor/10 group" key={index}>
                 <div className="bg-[#E9E9E9] border border-primaryColor/5 rounded-md w-full h-72 flex justify-center items-center relative  px-10 py-10 group-hover:cursor-pointer">
-                    <img src={idx?.images[0]} className="h-full group-hover:scale-110 transform transition-all duration-300 ease-in" alt="" />
+                    <img src={idx?.images[0]} className="h-full transition-all duration-300 ease-in transform group-hover:scale-110" alt="" />
                     <p className="absolute top-0 left-0 px-2 py-1 text-xs text-white bg-green-600 rounded-br-2xl rounded-tl-md">New</p>
                         <div className="hidden group-hover:flex absolute bottom-0 z-50 left-[50%] transform translate-x-[-50%] translate-y-0 transition-all duration-500 ease-in-out group-hover:-translate-y-1">
                         <div className="flex items-center gap-2">
@@ -220,20 +223,20 @@ const handlePageChange = (page: any) => {
         )}
         
          </div>
-          <div className="box-footer mt-4">
-                <div className="sm:flex items-center">
+          <div className="mt-4 box-footer">
+                <div className="items-center sm:flex">
                   <div className="text-defaulttextcolor/70">
                     Showing {(currentPage) * itemsPerPage + 1} to{' '}
                     {Math.min((currentPage + 1) * itemsPerPage, productData?.pagination?.total)} of{' '}
                     {productData?.pagination?.total} entries
-                    <i className="bi bi-arrow-right ms-2 font-semibold"></i>
+                    <i className="font-semibold bi bi-arrow-right ms-2"></i>
                   </div>
 
                   <div className="ms-auto">
                     <nav aria-label="" className="pagination-style-1">
-                      <ul className="ti-pagination flex items-center justify-center gap-2">
+                      <ul className="flex items-center justify-center gap-2 ti-pagination">
                         <li className={` ${currentPage === 0 ? 'disabled' : ''} rtl:rotate-180`}>
-                          <button aria-label="Previous" className="page-link flex justify-center items-center" onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 0}>
+                          <button aria-label="Previous" className="flex items-center justify-center page-link" onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 0}>
                             <MdOutlineKeyboardDoubleArrowLeft />
                           </button>
                         </li>
@@ -248,7 +251,7 @@ const handlePageChange = (page: any) => {
                           </li>
                         ))} */}
                         <li className={` ${currentPage === totalPages - 1 ? 'disabled' : ''} rtl:rotate-180`}>
-                          <button aria-label="Next" className="page-link flex justify-center items-center" onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages - 1}>
+                          <button aria-label="Next" className="flex items-center justify-center page-link" onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages - 1}>
                           <MdOutlineKeyboardDoubleArrowRight />
                           </button>
                         </li>
@@ -272,10 +275,10 @@ const handlePageChange = (page: any) => {
     </div>
 
     {noToken && (
-        <div className="fixed inset-0 z-50 flex justify-center bg-black bg-opacity-50">
+        <div className="fixed inset-0 z-[1000] flex justify-center bg-black bg-opacity-50">
         <div className="bg-white rounded-lg max-w-lg 2xl:max-w-xl w-full flex flex-col max-h-[90%] h-fit  animate-slideTop">
           <div className="flex items-center justify-between px-4 pt-4 pb-3 border-b">
-            <h2 className="text-lg font-medium">SignUp Form</h2>
+            <h2 className="text-lg font-medium">{openLogin ? 'SignUp' : "Login"} Modal</h2>
             <button
               type="button"
               className="text-gray-600 hover:text-gray-900"
@@ -287,9 +290,28 @@ const handlePageChange = (page: any) => {
               </svg>
             </button>
          </div>
-         <div className="overflow-y-scroll hide-scrollbar">
-            <SignUpModal/>
-         </div>
+         {openLogin ? (
+              <>
+              <div className="overflow-y-scroll hide-scrollbar">
+                 <SignUpModal />
+              </div>
+              <div className='col-span-12 px-5 py-3'>
+                             <p className='text-sm font-extralight'>Already have an Account. <span className='font-medium underline cursor-pointer text-primaryColor'
+                             onClick={()=>{setOpenLogin(!openLogin)}}>SignIn</span></p>
+                         </div>
+                         </>
+         ) : (
+            <>
+                      <div className="overflow-y-scroll hide-scrollbar">
+                 <LoginWithoutHeaderModal />
+              </div>
+              <div className='col-span-12 px-5 py-3'>
+                             <p className='text-sm font-extralight'>Create an Account.<span className='font-medium underline cursor-pointer text-primaryColor'
+                             onClick={()=>{setOpenLogin(!openLogin)}}>SignUp</span></p>
+                         </div>
+            </>
+         )}
+       
         </div>
         </div>
         )}

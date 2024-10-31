@@ -1,10 +1,10 @@
-import noDataImg from "../../assets/images/home/advertisement1/Background.svg"
+import noDataImg from "../../assets/images/NoData/No data-pana.svg"
 
 function NoDataFound() {
   return (
-    <div className='mx-auto py-5'>
+    <div className='py-5 mx-auto'>
     <img src={noDataImg} className='w-32 mx-auto' alt="No Image" />
-    <p className='text-sm text-center mt-2'>No Data Found</p>
+    <p className='mt-2 text-sm text-center'>No Data Found</p>
 </div>
   )
 }

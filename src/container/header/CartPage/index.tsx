@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 import { BiTrash } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { getProfileApi } from "../../../api-service/authApi";
 
 
 function CartPage() {
@@ -100,6 +101,37 @@ const navigate = useNavigate()
         });
       };
 
+      const getProfileData = useQuery({
+        queryKey : ['getProfileData'],
+        queryFn : () => getProfileApi()
+      })
+
+      const profileData = getProfileData?.data?.data?.result
+
+      // const handleProceedToContinue = () => {
+        
+      console.log(selectedItems);
+       
+      // }
+
+      const handleProceedToContinue = () => {
+        
+        const matchedProducts = cartData?.products?.filter((product:any, index:any) => 
+          selectedItems.includes(index) && product._id // or any specific _id condition here
+        );
+      
+        console.log(matchedProducts); 
+        
+        if(profileData?.shippingAddress?.length > 0){
+          navigate('/checkout', { state: { products: matchedProducts } })
+        }else{
+          toast.error('Please Add the Address Before Checkout.')
+          navigate('/address')
+        }
+        
+      };
+
+      
 
   return (
     <>
@@ -121,14 +153,14 @@ const navigate = useNavigate()
     ) : (
       <div className="px-[4%] py-4">
           <div className="grid grid-cols-12 gap-4">
-             <div className="col-span-7 w-full max-h-screen overflow-y-scroll hide-scrollbar">
+             <div className="flex flex-col w-full max-h-screen col-span-12 gap-3 overflow-y-scroll lg:col-span-7 hide-scrollbar">
               {cartData?.products?.length > 0 ? (
                 cartData?.products?.map((idx:any,index:number) => (
-                  <div className="border rounded-md p-2 flex gap-4 w-full" key={index}>
-                  <div className="border rounded-md p-3 flex justify-center items-center flex-col gap-2 min-w-56 min-h-48 relative">
+                  <div className="flex flex-col w-full gap-4 p-2 border rounded-md md:flex-row" key={index}>
+                  <div className="relative flex flex-col items-center justify-center gap-2 p-3 border rounded-md min-w-56 min-h-48">
  
-                    <img src={idx?.product?.images[0]} className="w-40 h-40 object-cover rounded-md" alt="" />
-                    {/* <div className="flex items-center border rounded-md w-24 justify-between overflow-hidden mt-2">
+                    <img src={idx?.product?.images[0]} className="object-cover w-40 h-40 rounded-md" alt="" />
+                    {/* <div className="flex items-center justify-between w-24 mt-2 overflow-hidden border rounded-md">
                         <button
                                 onClick={()=>handleDecrement(index,idx)}
                                 className="text-xl font-semibold px-[10px] py-1 hover:bg-yellow-400 hover:text-black"
@@ -138,12 +170,12 @@ const navigate = useNavigate()
                             <span className="text-xl">{counts[index]}</span>
                             <button
                                 onClick={()=>handleIncrement(index,idx)}
-                                className="text-xl font-semibold px-2 py-1 hover:bg-yellow-400 hover:text-black"
+                                className="px-2 py-1 text-xl font-semibold hover:bg-yellow-400 hover:text-black"
                             >
                                 +
                             </button>
                             </div> */}
-                            <div className="absolute top-2 left-2 w-6 h-6">
+                            <div className="absolute w-6 h-6 top-2 left-2">
                               <input type="checkbox"
                               checked={selectedItems.includes(index)}
                               onChange={()=>handleCheckboxChange(index)}
@@ -162,22 +194,22 @@ const navigate = useNavigate()
                     <hr  className="my-3"/>
                     <div>
                       <p className="text-base">Price Details</p>
-                      <div className="flex justify-between items-center mt-2">
+                      <div className="flex items-center justify-between mt-2">
                         <p className="text-black/50">Single Price</p>
                         <p>₹<span className="font-semibold">{idx?.variant?.MRP}</span></p>
                       </div>
-                      <div className="flex justify-between items-center mt-1">
+                      <div className="flex items-center justify-between mt-1">
                         <p className="text-black/50">Offer Price</p>
                         <p>₹<span className="font-semibold">{idx?.variant?.offerPrice ? parseFloat(idx?.variant?.offerPrice).toFixed(0) : "-"}</span></p>
                       </div>
-                      <div className="flex justify-between items-center mt-1">
+                      <div className="flex items-center justify-between mt-1">
                         <p className="text-black/50">Quantity</p>
                         <p><span className="font-semibold">{idx?.quantity}</span></p>
                       </div>
                       <hr  className="my-3"/>
-                      <div className="flex justify-between items-center">
+                      <div className="flex items-center justify-between">
                         <p className="text-black">Total Price</p>
-                        <p>₹<span className="font-bold text-lg">{idx?.total ? parseFloat(idx?.total).toFixed(0) : "-"}</span></p>
+                        <p>₹<span className="text-lg font-bold">{idx?.total ? parseFloat(idx?.total).toFixed(0) : "-"}</span></p>
                       </div>
                     </div>
                   </div>
@@ -189,32 +221,32 @@ const navigate = useNavigate()
               )}
              
              </div>
-              <div className="col-span-5 border rounded-md h-fit">
-                <p className="py-3 px-5 font-bold text-xl">Order Summary</p>
+              <div className="col-span-12 border rounded-md md:col-span-6 lg:col-span-5 h-fit">
+                <p className="px-5 py-3 text-xl font-bold">Order Summary</p>
                 <hr />
                 <div className="px-6 py-4">
-                <div className="flex justify-between items-center">
+                <div className="flex items-center justify-between">
                   <p className="text-lg text-black/70">Gross Amount</p>
-                  <p>₹ <span className="font-semibold text-lg">{cartData?.grossAmount}</span></p>
+                  <p>₹ <span className="text-lg font-semibold">{cartData?.grossAmount}</span></p>
                 </div>
-                <div className="flex justify-between items-center">
+                <div className="flex items-center justify-between">
                   <p className="text-lg text-black/70">Discount Amount</p>
-                  <p>₹ <span className="font-semibold text-lg">{cartData?.discountAmount ? parseFloat(cartData?.discountAmount).toFixed(0) : "-"}</span></p>
+                  <p>₹ <span className="text-lg font-semibold">{cartData?.discountAmount ? parseFloat(cartData?.discountAmount).toFixed(0) : "-"}</span></p>
                 </div>
-                <div className="flex justify-between items-center">
+                <div className="flex items-center justify-between">
                   <p className="text-lg text-black/70">GST Amount</p>
-                  <p>₹ <span className="font-semibold text-lg">{cartData?.totalGst ? parseFloat(cartData?.totalGst).toFixed(0) : "-"}</span></p>
+                  <p>₹ <span className="text-lg font-semibold">{cartData?.totalGst ? parseFloat(cartData?.totalGst).toFixed(0) : "-"}</span></p>
                 </div>
                 </div>
                 <hr className="px-6" />
-                <div className="flex justify-between items-center px-6 py-4">
-                  <p className="text-lg text-black font-semibold">Total Amount</p>
-                  <p>₹ <span className="font-bold text-xl">{cartData?.totalAmount ? parseFloat(cartData?.totalAmount).toFixed(0) : "-"}</span></p>
+                <div className="flex items-center justify-between px-6 py-4">
+                  <p className="text-lg font-semibold text-black">Total Amount</p>
+                  <p>₹ <span className="text-xl font-bold">{cartData?.totalAmount ? parseFloat(cartData?.totalAmount).toFixed(0) : "-"}</span></p>
                 </div>
                 <div className="mx-5 mb-3">
-                  <button className="bg-primaryColor text-white py-3 rounded-sm w-full font-bold text-xl hover:bg-yellow-400 hover:text-black"
+                  <button className="w-full py-3 text-xl font-bold text-white rounded-sm bg-primaryColor hover:bg-yellow-400 hover:text-black"
                    disabled={selectedItems.length === 0} // Disable if no items are selected
-                  onClick={()=>navigate('/address')}>
+                  onClick={()=>handleProceedToContinue()}>
                     Proceed to Checkout
                   </button>
                 </div>

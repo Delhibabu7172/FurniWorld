@@ -230,9 +230,9 @@ const getPincodeQueryData = useQuery({
       </div>
    
     ) : (
-      <div className="px-[10%] py-4 ">
-        <div className="border rounded-lg shadow-2xl px-5 py-4">
-        <p className="font-bold text-xl mb-2 2xl:text-2xl">Delivery Address</p>
+      <div className="px-[4%] md:px-[10%] py-4 ">
+        <div className="px-5 py-4 border rounded-lg shadow-2xl">
+        <p className="mb-2 text-xl font-bold 2xl:text-2xl">Delivery Address</p>
         <hr />
         
         {profileData?.shippingAddress?.length > 0 ? (
@@ -240,7 +240,7 @@ const getPincodeQueryData = useQuery({
                 <div className="mt-3">
                        <form onSubmit={handleSubmit(onSubmit)}>
                        {/* {JSON.stringify(errors)} */}
-                  <p className="font-medium text-primaryColor text-lg">Personal Details</p>
+                  <p className="text-lg font-medium text-primaryColor">Personal Details</p>
                   <div className="grid grid-cols-12 gap-4 mt-2 2xl:mt-4">
                        <div className="col-span-12 xl:col-span-6">
                            <label htmlFor="contact-lead-score" className="font-medium ">Name <span className="text-red-500">*</span></label>
@@ -277,7 +277,7 @@ const getPincodeQueryData = useQuery({
                                    }}
                                    maxLength={10}
                                />
-                               {errors.mobile && <p className='text-red-400 text-xs mt-1 font-medium'>{getErrorMessage(errors.mobile)}</p>}
+                               {errors.mobile && <p className='mt-1 text-xs font-medium text-red-400'>{getErrorMessage(errors.mobile)}</p>}
                            </div>
                            <div className="col-span-12 xl:col-span-6">
                                <label htmlFor="signin-username" className="form-label text-default">AlterNative Mobile Number </label>
@@ -298,10 +298,10 @@ const getPincodeQueryData = useQuery({
                                    }}
                                    maxLength={10}
                                />
-                               {errors.alterMobile && <p className='text-red-400 text-xs mt-1 font-medium'>{getErrorMessage(errors.alterMobile)}</p>}
+                               {errors.alterMobile && <p className='mt-1 text-xs font-medium text-red-400'>{getErrorMessage(errors.alterMobile)}</p>}
                            </div>
                   </div>
-                  <p className="font-medium text-primaryColor text-lg mt-3">Shipping Address</p>
+                  <p className="mt-3 text-lg font-medium text-primaryColor">Shipping Address</p>
                   <div className="grid grid-cols-12 gap-4 mt-2 2xl:mt-4">
                        <div className="col-span-12">
                            <label htmlFor="contact-lead-score" className="font-medium ">Address <span className="text-red-500">*</span></label>
@@ -379,17 +379,17 @@ const getPincodeQueryData = useQuery({
                                    {...register('landMark')} />
                            </div>
                        </div>
-                       <div className="col-span-12  xl:col-span-6 ">
-                                   <div className="font-medium text-sm">
+                       <div className="col-span-12 xl:col-span-6 ">
+                                   <div className="text-sm font-medium">
                                    GST Available
                                    <span className="text-red-500 ms-1">*</span>
                                    </div>
-                                   <div className="flex items-center p-3 border rounded-lg bg-gray-100">
+                                   <div className="flex items-center p-3 bg-gray-100 border rounded-lg">
                                    <label className="flex items-center mr-3">
                                        <input
                                        type="radio"
                                        value="true"
-                                       className="form-radio h-4 w-4 text-green-500"
+                                       className="w-4 h-4 text-green-500 form-radio"
                                        {...register("GST")}
                                        />
                                        <span className="ml-2">Yes</span>
@@ -398,22 +398,22 @@ const getPincodeQueryData = useQuery({
                                        <input
                                        type="radio"
                                        value="false"
-                                       className="form-radio h-4 w-4 text-gray-400"
+                                       className="w-4 h-4 text-gray-400 form-radio"
                                        {...register("GST")}
                                        />
                                        <span className="ml-2">No</span>
                                    </label>
                                    </div>
                                    {errors.GST && (
-                                   <p className="text-red-500 text-xs mt-1 font-medium">
+                                   <p className="mt-1 text-xs font-medium text-red-500">
                                        {getErrorMessage(errors.GST)}
                                    </p>
                                    )}
                                </div>
                                {selectedGST && selectedGST === "true" && (
                                    <>
-                                       <div className="col-span-12  md:col-span-6 ">
-                                       <div className="font-medium text-sm">
+                                       <div className="col-span-12 md:col-span-6 ">
+                                       <div className="text-sm font-medium">
                                            GST No<span className="text-red-500 ms-1">*</span>
                                        </div>
                                        <div className="mt-1">
@@ -426,15 +426,15 @@ const getPincodeQueryData = useQuery({
                                            maxLength={15}
                                            />
                                            {GSTNoError && (
-                                           <p className="text-red-500 text-xs mt-1 font-medium">
+                                           <p className="mt-1 text-xs font-medium text-red-500">
                                                {GSTNoError}
     
                                            </p>
                                            )}
                                        </div>
                                        </div>
-                                   <div className="col-span-12  md:col-span-6 ">
-                                       <div className="font-medium text-sm">
+                                   <div className="col-span-12 md:col-span-6 ">
+                                       <div className="text-sm font-medium">
                                            Business Name<span className="text-red-500 ms-1">*</span>
                                        </div>
                                        <div className="mt-1">
@@ -446,7 +446,7 @@ const getPincodeQueryData = useQuery({
                                            {...register("bussinessName")}
                                            />
                                            {businessNameError && (
-                                           <p className="text-red-500 text-xs mt-1 font-medium">
+                                           <p className="mt-1 text-xs font-medium text-red-500">
                                                {businessNameError}
     
                                            </p>
@@ -457,17 +457,17 @@ const getPincodeQueryData = useQuery({
                                        
                                    )}
     
-                                     <div className="col-span-12  xl:col-span-6 ">
-                                   <div className="font-medium text-sm">
+                                     <div className="col-span-12 xl:col-span-6 ">
+                                   <div className="text-sm font-medium">
                                    Set as Default Address
                                    <span className="text-red-500 ms-1">*</span>
                                    </div>
-                                   <div className="flex items-center p-3 border rounded-lg bg-gray-100">
+                                   <div className="flex items-center p-3 bg-gray-100 border rounded-lg">
                                    <label className="flex items-center mr-3">
                                        <input
                                        type="radio"
                                        value="true"
-                                       className="form-radio h-4 w-4 text-green-500"
+                                       className="w-4 h-4 text-green-500 form-radio"
                                        {...register("default")}
                                        />
                                        <span className="ml-2">Yes</span>
@@ -476,23 +476,23 @@ const getPincodeQueryData = useQuery({
                                        <input
                                        type="radio"
                                        value="false"
-                                       className="form-radio h-4 w-4 text-gray-400"
+                                       className="w-4 h-4 text-gray-400 form-radio"
                                        {...register("default")}
                                        />
                                        <span className="ml-2">No</span>
                                    </label>
                                    </div>
                                    {errors.default && (
-                                   <p className="text-red-500 text-xs mt-1 font-medium">
+                                   <p className="mt-1 text-xs font-medium text-red-500">
                                        {getErrorMessage(errors.default)}
                                    </p>
                                    )}
                                </div>
                   </div>
-                  <div className="w-full flex justify-end items-center mt-3 gap-3">
-                  <button type="button" className="border rounded-md px-3 py-2"
+                  <div className="flex items-center justify-end w-full gap-3 mt-3">
+                  <button type="button" className="px-3 py-2 border rounded-md"
                             onClick={()=>{setOpenAddress(!openAddress),setAddressData('')}}>Cancel</button>
-                                   <button type="submit" className="bg-primaryColor text-white hover:bg-yellow-400 hover:text-black px-3 py-2 rounded-md">{addressData ? "Update" : "Submit"}</button>
+                                   <button type="submit" className="px-3 py-2 text-white rounded-md bg-primaryColor hover:bg-yellow-400 hover:text-black">{addressData ? "Update" : "Submit"}</button>
                   </div>
                   </form>
              
@@ -500,9 +500,9 @@ const getPincodeQueryData = useQuery({
             ) : (
                     <div className="flex flex-col gap-4 mt-4">
                         {profileData?.shippingAddress?.map((idx:any,index:number) => (
-                             <div className="border rounded-md p-3 flex justify-between items-center gap-4" key={index}>
+                             <div className="flex items-center justify-between gap-4 p-3 border rounded-md" key={index}>
                              <div className="flex items-center gap-3">
-                             <div className="h-4 w-4">
+                             <div className="w-4 h-4">
                                  <input 
                                  checked={idx?.defaultAddress ===  true}
                                  onChange={() =>handleDefaultAddress(idx?._id)}
@@ -518,7 +518,7 @@ const getPincodeQueryData = useQuery({
                              </div>
                          </div>
                         ))}
-                        <div className="border rounded-md p-3 cursor-pointer"
+                        <div className="p-3 border rounded-md cursor-pointer"
                         onClick={()=>{setOpenAddress(true),setAddressData(''),reset()}}>
                             <p>+ Add a new Address</p>
                         </div>
@@ -528,7 +528,7 @@ const getPincodeQueryData = useQuery({
             <div className="mt-3">
                    <form onSubmit={handleSubmit(onSubmit)}>
                    {/* {JSON.stringify(errors)} */}
-              <p className="font-medium text-primaryColor text-lg">Personal Details</p>
+              <p className="text-lg font-medium text-primaryColor">Personal Details</p>
               <div className="grid grid-cols-12 gap-4 mt-2 2xl:mt-4">
                    <div className="col-span-12 xl:col-span-6">
                        <label htmlFor="contact-lead-score" className="font-medium ">Name <span className="text-red-500">*</span></label>
@@ -565,7 +565,7 @@ const getPincodeQueryData = useQuery({
                                }}
                                maxLength={10}
                            />
-                           {errors.mobile && <p className='text-red-400 text-xs mt-1 font-medium'>{getErrorMessage(errors.mobile)}</p>}
+                           {errors.mobile && <p className='mt-1 text-xs font-medium text-red-400'>{getErrorMessage(errors.mobile)}</p>}
                        </div>
                        <div className="col-span-12 xl:col-span-6">
                            <label htmlFor="signin-username" className="form-label text-default">AlterNative Mobile Number </label>
@@ -586,10 +586,10 @@ const getPincodeQueryData = useQuery({
                                }}
                                maxLength={10}
                            />
-                           {errors.alterMobile && <p className='text-red-400 text-xs mt-1 font-medium'>{getErrorMessage(errors.alterMobile)}</p>}
+                           {errors.alterMobile && <p className='mt-1 text-xs font-medium text-red-400'>{getErrorMessage(errors.alterMobile)}</p>}
                        </div>
               </div>
-              <p className="font-medium text-primaryColor text-lg mt-3">Shipping Address</p>
+              <p className="mt-3 text-lg font-medium text-primaryColor">Shipping Address</p>
               <div className="grid grid-cols-12 gap-4 mt-2 2xl:mt-4">
                    <div className="col-span-12">
                        <label htmlFor="contact-lead-score" className="font-medium ">Address <span className="text-red-500">*</span></label>
@@ -667,17 +667,17 @@ const getPincodeQueryData = useQuery({
                                {...register('landMark')} />
                        </div>
                    </div>
-                   <div className="col-span-12  xl:col-span-6 ">
-                               <div className="font-medium text-sm">
+                   <div className="col-span-12 xl:col-span-6 ">
+                               <div className="text-sm font-medium">
                                GST Available
                                <span className="text-red-500 ms-1">*</span>
                                </div>
-                               <div className="flex items-center p-3 border rounded-lg bg-gray-100">
+                               <div className="flex items-center p-3 bg-gray-100 border rounded-lg">
                                <label className="flex items-center mr-3">
                                    <input
                                    type="radio"
                                    value="true"
-                                   className="form-radio h-4 w-4 text-green-500"
+                                   className="w-4 h-4 text-green-500 form-radio"
                                    {...register("GST")}
                                    />
                                    <span className="ml-2">Yes</span>
@@ -686,22 +686,22 @@ const getPincodeQueryData = useQuery({
                                    <input
                                    type="radio"
                                    value="false"
-                                   className="form-radio h-4 w-4 text-gray-400"
+                                   className="w-4 h-4 text-gray-400 form-radio"
                                    {...register("GST")}
                                    />
                                    <span className="ml-2">No</span>
                                </label>
                                </div>
                                {errors.GST && (
-                               <p className="text-red-500 text-xs mt-1 font-medium">
+                               <p className="mt-1 text-xs font-medium text-red-500">
                                    {getErrorMessage(errors.GST)}
                                </p>
                                )}
                            </div>
                            {selectedGST && selectedGST === "true" && (
                                <>
-                                   <div className="col-span-12  md:col-span-6 ">
-                                   <div className="font-medium text-sm">
+                                   <div className="col-span-12 md:col-span-6 ">
+                                   <div className="text-sm font-medium">
                                        GST No<span className="text-red-500 ms-1">*</span>
                                    </div>
                                    <div className="mt-1">
@@ -714,15 +714,15 @@ const getPincodeQueryData = useQuery({
                                        maxLength={15}
                                        />
                                        {GSTNoError && (
-                                       <p className="text-red-500 text-xs mt-1 font-medium">
+                                       <p className="mt-1 text-xs font-medium text-red-500">
                                            {GSTNoError}
 
                                        </p>
                                        )}
                                    </div>
                                    </div>
-                               <div className="col-span-12  md:col-span-6 ">
-                                   <div className="font-medium text-sm">
+                               <div className="col-span-12 md:col-span-6 ">
+                                   <div className="text-sm font-medium">
                                        Business Name<span className="text-red-500 ms-1">*</span>
                                    </div>
                                    <div className="mt-1">
@@ -734,7 +734,7 @@ const getPincodeQueryData = useQuery({
                                        {...register("bussinessName")}
                                        />
                                        {businessNameError && (
-                                       <p className="text-red-500 text-xs mt-1 font-medium">
+                                       <p className="mt-1 text-xs font-medium text-red-500">
                                            {businessNameError}
 
                                        </p>
@@ -745,17 +745,17 @@ const getPincodeQueryData = useQuery({
                                    
                                )}
 
-                                 <div className="col-span-12  xl:col-span-6 ">
-                               <div className="font-medium text-sm">
+                                 <div className="col-span-12 xl:col-span-6 ">
+                               <div className="text-sm font-medium">
                                Set as Default Address
                                <span className="text-red-500 ms-1">*</span>
                                </div>
-                               <div className="flex items-center p-3 border rounded-lg bg-gray-100">
+                               <div className="flex items-center p-3 bg-gray-100 border rounded-lg">
                                <label className="flex items-center mr-3">
                                    <input
                                    type="radio"
                                    value="true"
-                                   className="form-radio h-4 w-4 text-green-500"
+                                   className="w-4 h-4 text-green-500 form-radio"
                                    {...register("default")}
                                    />
                                    <span className="ml-2">Yes</span>
@@ -764,21 +764,21 @@ const getPincodeQueryData = useQuery({
                                    <input
                                    type="radio"
                                    value="false"
-                                   className="form-radio h-4 w-4 text-gray-400"
+                                   className="w-4 h-4 text-gray-400 form-radio"
                                    {...register("default")}
                                    />
                                    <span className="ml-2">No</span>
                                </label>
                                </div>
                                {errors.default && (
-                               <p className="text-red-500 text-xs mt-1 font-medium">
+                               <p className="mt-1 text-xs font-medium text-red-500">
                                    {getErrorMessage(errors.default)}
                                </p>
                                )}
                            </div>
               </div>
-              <div className="w-full flex justify-end items-center gap-3 mt-3">
-                               <button type="submit" className="bg-primaryColor text-white hover:bg-yellow-400 hover:text-black px-3 py-2 rounded-md">Submit</button>
+              <div className="flex items-center justify-end w-full gap-3 mt-3">
+                               <button type="submit" className="px-3 py-2 text-white rounded-md bg-primaryColor hover:bg-yellow-400 hover:text-black">Submit</button>
               </div>
               </form>
          

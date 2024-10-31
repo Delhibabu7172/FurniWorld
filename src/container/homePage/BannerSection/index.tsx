@@ -8,11 +8,11 @@ import styleBottomImg from "../../../assets/images/home/bannerSection/Container.
 
 function BannerSection() {
   return (
-    <div className=" bg-primaryColor/5 !h-[500px] overflow-hidden grid grid-cols-2 px-[4%] relative font-Lexend">
+    <div className=" bg-primaryColor/5 !h-[500px] overflow-hidden grid grid-cols-1 md:grid-cols-2 px-[4%] relative font-Lexend">
         <div className="flex flex-col items-start justify-center ">
                         <p className="font-bold text-[#777777] text-2xl mb-3">Flat 30% Off</p>
                         <div className="flex mb-7">
-                        <p className="text-5xl font-extrabold ">Explore <span className="text-primaryColor">Modern</span></p>
+                        <p className="text-3xl font-extrabold md:text-5xl ">Explore <span className="text-primaryColor">Modern</span></p>
                         <div className="-mt-10">
                         <img src={styleImg} className="w-10" alt="" />
                         </div>

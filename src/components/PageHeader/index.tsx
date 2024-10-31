@@ -14,7 +14,7 @@ export default function Pageheader({ data }: any) {
   
   return (
     <Fragment>
-      <div className="justify-between block mb-2 md:flex px-[4%]">
+      <div className="justify-between  mb-2 flex px-[4%]">
         <div>
           <p className=" text-[1.125rem] font-semibold">
             {currentpage}

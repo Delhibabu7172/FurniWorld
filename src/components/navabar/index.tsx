@@ -37,7 +37,7 @@ function NavbarIndex() {
 
   return (
     <div className="flex items-center justify-between py-2  px-[3%] md:px-[4%] bg-[#F8F8FB] font-Lexend">
-        <div className="border-[1px] rounded-lg p-2 w-12">
+        <div className="border-[1px] rounded-lg p-2 w-12 hidden md:block">
             <img src={Icon} alt="" />
         </div>
 
@@ -52,7 +52,7 @@ function NavbarIndex() {
                 ))
             }
         </div>
-        <div>
+        <div className="hidden md:block">
             <p className="p-2 font-medium text-primaryColor border-[1px] rounded-md flex justify-center items-center gap-1"><HiOutlineMapPin /> Namakkal</p>
         </div>
     </div>

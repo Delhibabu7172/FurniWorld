@@ -44,3 +44,11 @@ export const getProductLandingApi = async (query : any) => {
   export const postDefaultAddressApi = async (query : any) => {
     return apiFunctions.post(`${siteUrls.landing.defaultAddress}/${query}`,{});
   }
+
+  export const postOrderApi = async (payload : any) => {
+    return apiFunctions.post(`${siteUrls.landing.placeOrder}`,payload);
+  }
+
+  export const getOrdersApi = async (query : any) => {
+    return apiFunctions.get(`${siteUrls.landing.order}${query}`);
+  }

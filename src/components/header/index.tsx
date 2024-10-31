@@ -10,9 +10,11 @@ import altImg from "../../assets/images/header/1077114.png"
 import { useNavigate } from "react-router-dom"
 import { getCartApi, getWishListApi } from "../../api-service/landingApi"
 import CartModal from "../../container/header/CartModal"
-import { FaHeart } from "react-icons/fa"
+import {  FaHeart, FaShoppingCart } from "react-icons/fa"
 import SignUpModal from "../signUpModal"
 import LoginWithoutHeaderModal from "../LoginModal/LoginWithoutHeader"
+import { BsBag } from "react-icons/bs"
+import { MdOutlineLocationOn } from "react-icons/md"
 
 function Header() {
 
@@ -91,14 +93,14 @@ function Header() {
 
   return (
     <>
-      <div className="flex items-center justify-between  py-2 md:py-[15px] px-[3%] md:px-[4%] font-Lexend">
-        <div className="flex items-center gap-12">
-          <div className="flex items-center gap-2">
-            <img src={logo} className="w-20" alt="" />
-            <p className="font-bold text-xl">FURNI WORLD</p>
+      <div className="flex items-center justify-between gap-2 xl:gap-0 py-2 md:py-[15px] px-[3%] xl:px-[4%] font-Lexend">
+        <div className="flex items-center gap-3 xl:gap-12">
+          <div className="flex items-center gap-1 xl:gap-2">
+            <img src={logo} className="w-10 md:w-20" alt="" />
+            <p className="text-xs font-bold md:text-base xl:text-xl">FURNI WORLD</p>
           </div>
           <div>
-            <div className="hidden md:block border-[1.7px]  border-primaryColor rounded-md overflow-hidden min-w-[500px]">
+            <div className="hidden lg:block border-[1.7px]  border-primaryColor rounded-md overflow-hidden 2xl:min-w-[500px]">
               <div className="flex items-center justify-between">
                 <input type="search" className="py-1 border-none outline-none ps-2 placeholder:text-sm" placeholder="Search for items..." />
                 <div className="flex">
@@ -120,7 +122,7 @@ function Header() {
         </div>
 
 
-        <div className="flex items-center justify-center gap-2 text-xs font-medium md:gap-5 md:text-base">
+        <div className="flex items-center justify-center gap-2 text-xs font-medium xl:gap-5 md:text-base">
           {!profileData && (
             <button className="flex items-center justify-center gap-2 px-2 py-1 text-primaryColor border-[1px] border-primaryColor rounded-md hover:text-yellow-400 hover:border-primaryColor font-bold "
               onClick={() => setOpenModal(true)}><BiUserCircle className="w-5 h-5" /> Login
@@ -131,6 +133,7 @@ function Header() {
             <img src={likeImg} className="w-3 h-3 md:w-5 md:h-5 md:me-1" alt="" />
             <p>WishList</p>
           </div> */}
+          <div className="hidden md:block">
           <div className={`flex items-center  cursor-pointer ${wishlistData?.length > 0 ? "gap-2" : "gap-1"}`}
           onClick={()=>navigate('/wishlist')}>
             <div className="relative">
@@ -144,6 +147,8 @@ function Header() {
             <p>WishList</p>
 
           </div>
+          </div>
+          <div className="hidden md:block">
           <div className={`flex items-center gap-2 cursor-pointer ${cartData?.products?.length > 0 ? "gap-2" : "gap-1"}`}
           onClick={()=>setOpenCartModal(true)}>
             <div className="relative">
@@ -157,14 +162,15 @@ function Header() {
             <p>Cart</p>
 
           </div>
+          </div>
           {profileData && (
             <div className="relative">
               <div className="border-[1px] px-2 py-1 rounded-md border-primaryColor flex justify-center items-center gap-2 bg-primaryColor/5 cursor-pointer group hover:bg-transparent"
                 onClick={() => setOpenUser(true)}>
                 <img src={profileData?.img_url ? profileData?.img_url : altImg} className="w-8 h-8 rounded-full 2xl:w-9 2xl:h-9" alt="" />
                 <div>
-                  <p className="font-semibold group-hover:text-yellow-400">{profileData?.firstName} {profileData?.lastName}</p>
-                  <p className="text-xs text-black/50 group-hover:text-primaryColor/50">{profileData?.role?.name}</p>
+                  <p className="font-medium md:font-semibold group-hover:text-yellow-400">{profileData?.firstName} {profileData?.lastName}</p>
+                  <p className="text-[10px] md:text-xs text-black/50 group-hover:text-primaryColor/50">{profileData?.role?.name}</p>
                 </div>
               </div>
               {openUser && (
@@ -182,21 +188,28 @@ function Header() {
                   </div>
                     </>
                   ) : profileData?.role?.name === 'CUSTOMER' ? (
-                    <>
-                     <div className="flex items-center gap-2 border-b-[1px] py-1 px-2 hover:bg-primaryColor/5 cursor-pointer">
-                    <BiUser />
+                    <div >
+                     <div className="flex items-center gap-2 border-b-[1px] py-1 px-2 hover:bg-primaryColor/5 cursor-pointer"
+                     onClick={()=>{navigate('/orders'),setOpenUser(false)}}>
+                    <BsBag />
                     <p>Orders</p>
                   </div>
                   <div className="flex items-center gap-2 border-b-[1px] py-1 px-2 hover:bg-primaryColor/5 cursor-pointer"
                   onClick={()=>{navigate('/address'),setOpenUser(false)}}>
-                    <BiUser />
+                    <MdOutlineLocationOn />
                     <p>Address</p>
                   </div>
                   <div className="flex items-center gap-2 border-b-[1px] py-1 px-2 hover:bg-primaryColor/5 cursor-pointer">
                     <BiUser />
                     <p>Account Details</p>
                   </div>
-                  <div className="flex items-center gap-2 border-b-[1px] py-1 px-2 hover:bg-primaryColor/5 cursor-pointer">
+                  <div className="flex items-center gap-2 border-b-[1px] py-1 px-2 hover:bg-primaryColor/5 cursor-pointer"
+                  onClick={()=>{navigate('/cart'),setOpenUser(false)}}>
+                    <FaShoppingCart />
+                    <p>Cart</p>
+                  </div>
+                  <div className="flex items-center gap-2 border-b-[1px] py-1 px-2 hover:bg-primaryColor/5 cursor-pointer"
+                  onClick={()=>{navigate('/wishlist'),setOpenUser(false)}}>
                     <FaHeart />
                     <p>Wishlist</p>
                   </div>
@@ -205,7 +218,7 @@ function Header() {
                     <FiLogOut />
                     <p>Logout</p>
                   </div>
-                    </>
+                    </div>
                   ) : ""}
                  
                 </div>
@@ -255,7 +268,7 @@ function Header() {
                      <SignUpModal />
                   </div>
                   <div className='col-span-12 px-5 py-3'>
-                                 <p className='text-sm font-extralight'>Already have an Account. <span className='underline cursor-pointer font-medium text-primaryColor'
+                                 <p className='text-sm font-extralight'>Already have an Account. <span className='font-medium underline cursor-pointer text-primaryColor'
                                  onClick={()=>{setOpenLogin(!openLogin)}}>SignIn</span></p>
                              </div>
                              </>
@@ -265,7 +278,7 @@ function Header() {
                      <LoginWithoutHeaderModal />
                   </div>
                   <div className='col-span-12 px-5 py-3'>
-                                 <p className='text-sm font-extralight'>Create an Account.<span className='underline cursor-pointer font-medium text-primaryColor'
+                                 <p className='text-sm font-extralight'>Create an Account.<span className='font-medium underline cursor-pointer text-primaryColor'
                                  onClick={()=>{setOpenLogin(!openLogin)}}>SignUp</span></p>
                              </div>
                 </>

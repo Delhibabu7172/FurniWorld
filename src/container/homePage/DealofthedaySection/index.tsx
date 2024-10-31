@@ -29,7 +29,7 @@ function DayofthedealSection() {
     const [wishlistItems, setWishlistItems] = useState<any>([]);
 
     const calculateTimeLeft = (): TimeLeft => {
-        const targetDate = new Date("2024-10-31T00:00:00").getTime(); 
+        const targetDate = new Date("2024-11-10T00:00:00").getTime(); 
         const now = new Date().getTime();
         const difference = targetDate - now;
 
@@ -180,9 +180,9 @@ useEffect(() => {
             <div className="grid grid-cols-12 gap-3 mt-5">
                 {productData?.length > 0 ? (
                     productData?.slice(0,4).map((idx:any,index:number) => (
-                        <div className="col-span-12 md:col-span-6 lg:col-span-4 xl:col-span-3 p-2 border rounded-sm border-primaryColor/10 group" key={index}>
+                        <div className="col-span-12 p-2 border rounded-sm md:col-span-6 lg:col-span-4 xl:col-span-3 border-primaryColor/10 group" key={index}>
                         <div className="bg-[#E9E9E9] border border-primaryColor/5 rounded-md w-full h-72 flex justify-center items-center relative  px-10 py-10 group-hover:cursor-pointer">
-                            <img src={idx?.images[0]} className="h-full group-hover:scale-110 transform transition-all duration-300 ease-in" alt="" />
+                            <img src={idx?.images[0]} className="h-full transition-all duration-300 ease-in transform group-hover:scale-110" alt="" />
                             <p className="absolute top-0 left-0 px-2 py-1 text-xs text-white bg-green-600 rounded-br-2xl rounded-tl-md">New</p>
                                 <div className="hidden group-hover:flex absolute bottom-2 z-50 left-[50%] transform translate-x-[-50%] translate-y-0 transition-all duration-500 ease-in-out group-hover:-translate-y-1">
                                     <div className="flex items-center gap-2">
@@ -253,7 +253,7 @@ useEffect(() => {
                  <SignUpModal />
               </div>
               <div className='col-span-12 px-5 py-3'>
-                             <p className='text-sm font-extralight'>Already have an Account. <span className='underline cursor-pointer font-medium text-primaryColor'
+                             <p className='text-sm font-extralight'>Already have an Account. <span className='font-medium underline cursor-pointer text-primaryColor'
                              onClick={()=>{setOpenLogin(!openLogin)}}>SignIn</span></p>
                          </div>
                          </>
@@ -263,7 +263,7 @@ useEffect(() => {
                  <LoginWithoutHeaderModal />
               </div>
               <div className='col-span-12 px-5 py-3'>
-                             <p className='text-sm font-extralight'>Create an Account.<span className='underline cursor-pointer font-medium text-primaryColor'
+                             <p className='text-sm font-extralight'>Create an Account.<span className='font-medium underline cursor-pointer text-primaryColor'
                              onClick={()=>{setOpenLogin(!openLogin)}}>SignUp</span></p>
                          </div>
             </>
