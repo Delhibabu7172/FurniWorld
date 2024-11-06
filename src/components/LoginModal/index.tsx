@@ -54,7 +54,7 @@ function LoginModal() {
           console.log(updateApi);
       
           if (updateApi?.status === 200) {
-
+            window.location.reload()
             localStorage.setItem('access-token', updateApi.data?.result.tokens.accessToken);
             localStorage.setItem( 'role',btoa(updateApi.data?.result.user.role.name));
             localStorage.setItem('refreshToken',updateApi.data?.result.tokens.refreshToken);
@@ -63,6 +63,7 @@ function LoginModal() {
     
             toast.success(updateApi?.data?.msg)
             navigate('/')  
+            
     
           } else{
             setError('InValid UserName or Password.')
