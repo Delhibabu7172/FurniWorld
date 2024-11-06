@@ -11,6 +11,7 @@ import { BiSearch } from "react-icons/bi"
 import NoDataFound from "../../../components/noDataFound"
 import { useLocation, useNavigate } from "react-router-dom"
 import SignUpModal from "../../../components/signUpModal"
+import LoginModal from "../../../components/LoginModal"
 // import toast from "react-hot-toast"
 
 
@@ -18,7 +19,7 @@ function AuthProducts() {
 
     const hasToken  = localStorage.getItem('access-token')
     const [noToken , setNoToken] = useState(false)
-
+    const [openModals , setOpenModals] = useState(false)
     // const [cartItems, setCartItems] = useState<any>([]);    
 
     const location = useLocation();
@@ -275,7 +276,7 @@ const handlePageChange = (page: any) => {
         <div className="fixed inset-0 z-50 flex justify-center bg-black bg-opacity-50">
         <div className="bg-white rounded-lg max-w-lg 2xl:max-w-xl w-full flex flex-col max-h-[90%] h-fit  animate-slideTop">
           <div className="flex items-center justify-between px-4 pt-4 pb-3 border-b">
-            <h2 className="text-lg font-medium">SignUp Form</h2>
+            <h2 className="text-lg font-medium">{openModals ? "SignUp" : "SignIn"}</h2>
             <button
               type="button"
               className="text-gray-600 hover:text-gray-900"
@@ -287,9 +288,31 @@ const handlePageChange = (page: any) => {
               </svg>
             </button>
          </div>
-         <div className="overflow-y-scroll hide-scrollbar">
-            <SignUpModal/>
-         </div>
+        {openModals ? (
+           <>
+           <div className="overflow-y-scroll hide-scrollbar">
+              <SignUpModal/>
+           </div>
+           <div className="col-span-12 px-5 pb-3">
+                                  <p 
+                                  onClick={()=>setOpenModals(!openModals)}
+                                  className="text-xs">Already have an Account <span className="text-sm underline cursor-pointer text-primaryColor">Sign In</span></p>
+              </div>
+           </>
+        ) : (
+          <>
+          <div className="overflow-y-scroll hide-scrollbar">
+             <LoginModal/>
+          </div>
+          <div className="col-span-12 px-5 pb-3">
+                                 <p
+                                 onClick={()=>setOpenModals(!openModals)}
+                                 className="text-xs">Create An Account <span className="text-sm underline cursor-pointer text-primaryColor">Sign Up</span></p>
+             </div>
+          </>
+        )}
+        
+         
         </div>
         </div>
         )}

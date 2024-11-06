@@ -12,8 +12,8 @@ function Footer() {
                     <p className="font-bold 2xl:text-xl">FURNI WORLD</p>
                     </div>
                     
-                    <p className="mt-3 mb-3">Lorem ipsum dolor sit amet consectetur adipiscing elit aliquam</p>
-                    <div className="flex items-center gap-4">
+                    {/* <p className="mt-3 mb-3">Lorem ipsum dolor sit amet consectetur adipiscing elit aliquam</p> */}
+                    <div className="flex items-center gap-4 mt-6 md:mt-10">
                         <FaFacebook/>
                         <FaInstagram/>
                         <FaYoutube/>
@@ -49,9 +49,9 @@ function Footer() {
                 <div>
                     <p className="font-bold text-base">Contacts us</p>
                     <ul className="mt-4">
-                        <li className="text-sm text-white/90 mb-2">contact@company.com</li>
-                        <li className="text-sm text-white/90 mb-2">(414) 687 - 5892</li>
-                        <li className="text-sm text-white/90 mb-2">794 Mcallister St San Francisco, 94102</li>
+                        <li className="text-sm text-white/90 mb-2">reddyamman@gmail.com</li>
+                        <li className="text-sm text-white/90 mb-2">9791290312</li>
+                        <li className="text-sm text-white/90 mb-2">194. Salem Road, Opposite Namakkal Lorry Owners Association, Namakkal -637 001, Namakkal District.</li>
                     </ul>
                 </div>
                 <div></div>
@@ -61,7 +61,7 @@ function Footer() {
             <hr  className="border-white"/>
             <div className="flex justify-between mt-5">
                 <p>Copyright © 2024 REDDY AMMAN AGENCIES</p>
-                <p>All Rights Reserved | Terms and Conditions | Privacy Policy</p>
+                <p>All Rights Reserved | Terms and Conditions | <a href="https://sites.google.com/view/furniworld/home" target="_blank" className="cursor-pointer">Privacy Policy</a></p>
             </div>
     </div>
   )

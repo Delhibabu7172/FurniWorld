@@ -7,7 +7,7 @@ import { deleteCartApi, getCartApi, getWishListApi, postAddCartApi, postWishList
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-
+import noCrt from "../../../assets/images/NoData/No data-pana.svg"
 
 function WishList() {
 
@@ -150,10 +150,12 @@ function WishList() {
                 </div>
             )
         ) : (
-            <div className="col-span-12 text-center">
-                <p>No Wishlist is There....</p>
-                <p>Please Continue to Purchase</p>
-            </div>
+            <div className="flex flex-col justify-center items-center my-10 col-span-12">
+            <img src={noCrt} className="w-24" alt="" />
+            <p>No Wishlist Available</p>
+            <button className="bg-primaryColor text-white p-2 rounded-md hover:bg-yellow-400 hover:text-black mt-4" 
+            onClick={()=>{navigate('/products')}}>Please Add Products</button>
+          </div>
         )} 
                
                 

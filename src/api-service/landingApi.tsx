@@ -32,3 +32,23 @@ export const getProductLandingApi = async (query : any) => {
   export const postsShippingAddressApi = async (query : any,payload : any) => {
     return apiFunctions.post(`${siteUrls.landing.shippingAddress}/${query}`,payload);
   }
+
+  export const putShippingAddressApi = async (query : any,id : any,payload : any) => {
+    return apiFunctions.put(`${siteUrls.landing.shippingAddress}/${query}?address_id=${id}`,payload);
+  }
+
+  export const deleteShippingAddressApi = async (query : any,id : any) => {
+    return apiFunctions.delete(`${siteUrls.landing.shippingAddress}/${query}?address_id=${id}`);
+  }
+
+  export const postDefaultAddressApi = async (query : any) => {
+    return apiFunctions.post(`${siteUrls.landing.defaultAddress}/${query}`,{});
+  }
+
+  export const postOrderApi = async (payload : any) => {
+    return apiFunctions.post(`${siteUrls.landing.placeOrder}`,payload);
+  }
+
+  export const getOrdersApi = async (query : any) => {
+    return apiFunctions.get(`${siteUrls.landing.order}${query}`);
+  }

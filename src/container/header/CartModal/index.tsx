@@ -4,6 +4,7 @@ import { Circles } from "react-loader-spinner";
 import { BiTrash } from "react-icons/bi";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import noCrt from "../../../assets/images/NoData/cart.svg"
 
 function CartModal({ openModal , handleClose  } : any) {
 
@@ -102,9 +103,11 @@ function CartModal({ openModal , handleClose  } : any) {
           </div>
           )
        ) : (
-        <div>
+        <div className="flex flex-col justify-center items-center mt-10">
+          <img src={noCrt} className="w-24" alt="" />
           <p>No Cart Available</p>
-          <p>Please Search Products</p>
+          <button className="bg-primaryColor text-white p-2 rounded-md hover:bg-yellow-400 hover:text-black mt-4" 
+          onClick={()=>{navigate('/products'),handleClose()}}>Please Add Products</button>
         </div>
        )}
        </div>

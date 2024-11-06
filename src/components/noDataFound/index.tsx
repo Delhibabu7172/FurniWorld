@@ -1,4 +1,4 @@
-import noDataImg from "../../assets/images/home/advertisement1/Background.svg"
+import noDataImg from "../../assets/images/NoData/No data-pana.svg"
 
 function NoDataFound() {
   return (

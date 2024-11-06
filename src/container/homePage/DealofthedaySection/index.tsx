@@ -7,6 +7,7 @@ import { LuIndianRupee } from "react-icons/lu";
 import { useNavigate } from "react-router-dom";
 import SignUpModal from "../../../components/signUpModal";
 import toast from "react-hot-toast";
+import LoginModal from "../../../components/LoginModal";
 
 interface TimeLeft {
     days: number;
@@ -20,6 +21,8 @@ function DayofthedealSection() {
 
     const hasToken  = localStorage.getItem('access-token')
     const [noToken , setNoToken] = useState(false)
+
+    const [openModals , setOpenModals] = useState(false)
 
     const navigate = useNavigate();
 
@@ -228,7 +231,7 @@ useEffect(() => {
             </div>
         </div>
 
-
+{/* 
         {noToken && (
         <div className="fixed inset-0 z-50 flex justify-center bg-black bg-opacity-50">
         <div className="bg-white rounded-lg max-w-lg 2xl:max-w-xl w-full flex flex-col max-h-[90%] h-fit  animate-slideTop">
@@ -248,6 +251,50 @@ useEffect(() => {
          <div className="overflow-y-scroll hide-scrollbar">
             <SignUpModal/>
          </div>
+        </div>
+        </div>
+        )} */}
+        {noToken && (
+        <div className="fixed inset-0 z-50 flex justify-center bg-black bg-opacity-50">
+        <div className="bg-white rounded-lg max-w-lg 2xl:max-w-xl w-full flex flex-col max-h-[90%] h-fit  animate-slideTop">
+          <div className="flex items-center justify-between px-4 pt-4 pb-3 border-b">
+            <h2 className="text-lg font-medium">{openModals ? "SignUp" : "SignIn"}</h2>
+            <button
+              type="button"
+              className="text-gray-600 hover:text-gray-900"
+              onClick={()=>setNoToken(!noToken)}
+            >
+              <span className="sr-only">Close</span>
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+         </div>
+        {openModals ? (
+           <>
+           <div className="overflow-y-scroll hide-scrollbar">
+              <SignUpModal/>
+           </div>
+           <div className="col-span-12 px-5 pb-3">
+                                  <p 
+                                  onClick={()=>setOpenModals(!openModals)}
+                                  className="text-xs">Already have an Account <span className="text-sm underline cursor-pointer text-primaryColor">Sign In</span></p>
+              </div>
+           </>
+        ) : (
+          <>
+          <div className="overflow-y-scroll hide-scrollbar">
+             <LoginModal/>
+          </div>
+          <div className="col-span-12 px-5 pb-3">
+                                 <p
+                                 onClick={()=>setOpenModals(!openModals)}
+                                 className="text-xs">Create An Account <span className="text-sm underline cursor-pointer text-primaryColor">Sign Up</span></p>
+             </div>
+          </>
+        )}
+        
+         
         </div>
         </div>
         )}

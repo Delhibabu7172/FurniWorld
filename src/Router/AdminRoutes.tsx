@@ -1,3 +1,4 @@
+import App from "../container/homePage/App";
 import ContactUs from "../container/homePage/contactUs";
 import AdminBrand from "../container/role/admin/brand";
 import AdminCategory from "../container/role/admin/category";
@@ -8,10 +9,10 @@ import AdminProducts from "../container/role/admin/products";
 import ProductCreate from "../container/role/admin/products/ProductCreate";
 
 export const AdminRoutes = [
-    // {
-    //     path: '',
-    //     element: <AdminHome/>
-    // },
+    {
+        path: '',
+        element: <App/>
+    },
     // {
     //     path: 'orders',
     //     element: <AdminOrders/>

@@ -10,6 +10,7 @@ import { useState } from "react"
 import Pagination from "../../../../components/pagination"
 import { MdOutlineKeyboardDoubleArrowLeft, MdOutlineKeyboardDoubleArrowRight } from "react-icons/md"
 import toast from "react-hot-toast"
+import NoDataFound from "../../../../components/noDataFound"
 
 function AdminProducts() {
 
@@ -64,6 +65,8 @@ const handleDelete = async (data : any) =>{
                     <button className="flex items-center px-4 py-2 text-white rounded-md bg-primaryColor hover:bg-yellow-400 hover:text-black font-semibold"
                     onClick={()=>navigate(`/product/create`)}><BiPlus className="me-2"/>Add Product</button>
                 </div>
+                {productData?.rows?.length > 0 ? (
+                            <>
                 <table className="w-full ">
                     <thead className=" bg-primaryColor/10">
                         <tr className="">
@@ -156,6 +159,9 @@ const handleDelete = async (data : any) =>{
                   </div>
                 </div>
               </div>
+              </>) : (
+                <NoDataFound/>
+              )}
         </div>
              
         )}

@@ -1,4 +1,6 @@
 import CartPage from "../container/header/CartPage";
+import CheckoutPage from "../container/header/Checkout";
+import MyOrders from "../container/header/MyOrders";
 import SavedAddress from "../container/header/SavedAddress";
 import WishList from "../container/header/Wishlist";
 import App from "../container/homePage/App";
@@ -39,5 +41,13 @@ export const DefaultRoutes = [
     {
         path: 'address',
         element: <SavedAddress/>
+    },
+    {
+        path: 'checkout',
+        element: <CheckoutPage/>
+    },
+    {
+        path: 'orders',
+        element: <MyOrders/>
     },
 ]

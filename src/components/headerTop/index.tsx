@@ -3,7 +3,7 @@ function HeaderTop() {
   return (
     <div className="flex items-center justify-between py-[6px] text-white bg-primaryColor px-[3%] md:px-[4%] text-xs md:text-sm font-Lexend">
         <div>
-            <p>Flat 50% Off On Grocery Shop.</p>
+            <p>Flat 20% - 30% Off On Shopping.</p>
         </div>
         <div className="flex items-center justify-center gap-2">
             <p>Help?</p>

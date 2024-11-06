@@ -12,15 +12,18 @@ import { useNavigate } from "react-router-dom"
 import { getCartApi, getWishListApi } from "../../api-service/landingApi"
 import CartModal from "../../container/header/CartModal"
 import { FaHeart } from "react-icons/fa"
+import SignUpModal from "../signUpModal"
 
 function Header() {
+
+  const [openModals , setOpenModals] = useState(false)
 
   const [openModal, setOpenModal] = useState(false)
   const [openUser, setOpenUser] = useState(false)
   const userRef = useRef<HTMLDivElement>(null)
   const navigate = useNavigate()
 
-  const [openCartModel , setOpenCartModal] = useState(false)
+  const [openCartModel, setOpenCartModal] = useState(false)
 
   const hasToken = localStorage.getItem('access-token')
 
@@ -76,8 +79,8 @@ function Header() {
 
   const cartData = getCartData?.data?.data?.result
 
-   // for wishlist show in ui 
-   const getWishlistData = useQuery({
+  // for wishlist show in ui 
+  const getWishlistData = useQuery({
     queryKey: ['getWishlistData'],
     queryFn: () => getWishListApi(``),
     enabled: !!hasToken
@@ -85,7 +88,7 @@ function Header() {
 
   const wishlistData = getWishlistData?.data?.data?.result
   console.log(wishlistData?.length);
-  
+
 
   return (
     <>
@@ -129,32 +132,40 @@ function Header() {
             <img src={likeImg} className="w-3 h-3 md:w-5 md:h-5 md:me-1" alt="" />
             <p>WishList</p>
           </div> */}
-          <div className={`flex items-center  cursor-pointer ${wishlistData?.length > 0 ? "gap-2" : "gap-1"}`}
-          onClick={()=>navigate('/wishlist')}>
-            <div className="relative">
-              <img src={likeImg} className="w-3 h-3 md:w-6 md:h-5 md:me-1" alt="" />
-              {wishlistData?.length > 0 && (
-                <p className="absolute -top-2 -right-2 bg-yellow-400 text-xs rounded-full h-[17px] w-[17px] flex justify-center items-center">
-                  {wishlistData?.length > 10 ? "10+" : wishlistData?.length}
-                </p>
-              )}
-            </div>
-            <p>WishList</p>
 
-          </div>
-          <div className={`flex items-center gap-2 cursor-pointer ${cartData?.products?.length > 0 ? "gap-2" : "gap-1"}`}
-          onClick={()=>setOpenCartModal(true)}>
-            <div className="relative">
-              <img src={cartImg} className="w-3 h-3 md:w-5 md:h-5 md:me-1" alt="" />
-              {cartData?.products?.length > 0 && (
-                <p className="absolute -top-2 -right-2 bg-yellow-400 text-xs rounded-full h-[17px] w-[17px] flex justify-center items-center">
-                  {cartData?.products?.length > 10 ? "10+" : cartData?.products?.length}
-                </p>
-              )}
-            </div>
-            <p>Cart</p>
+          {profileData?.role?.name !== 'ADMIN' && (
+            <div className={`flex items-center  cursor-pointer ${wishlistData?.length > 0 ? "gap-2" : "gap-1"}`}
+              onClick={() => navigate('/wishlist')}>
+              <div className="relative">
+                <img src={likeImg} className="w-3 h-3 md:w-6 md:h-5 md:me-1" alt="" />
+                {wishlistData?.length > 0 && (
+                  <p className="absolute -top-2 -right-2 bg-yellow-400 text-xs rounded-full h-[17px] w-[17px] flex justify-center items-center">
+                    {wishlistData?.length > 10 ? "10+" : wishlistData?.length}
+                  </p>
+                )}
+              </div>
+              <p>WishList</p>
 
-          </div>
+            </div>
+          )}
+
+          {profileData?.role?.name !== 'ADMIN' && (
+            <div className={`flex items-center gap-2 cursor-pointer ${cartData?.products?.length > 0 ? "gap-2" : "gap-1"}`}
+              onClick={() => setOpenCartModal(true)}>
+              <div className="relative">
+                <img src={cartImg} className="w-3 h-3 md:w-5 md:h-5 md:me-1" alt="" />
+                {cartData?.products?.length > 0 && (
+                  <p className="absolute -top-2 -right-2 bg-yellow-400 text-xs rounded-full h-[17px] w-[17px] flex justify-center items-center">
+                    {cartData?.products?.length > 10 ? "10+" : cartData?.products?.length}
+                  </p>
+                )}
+              </div>
+              <p>Cart</p>
+
+            </div>
+          )}
+
+
           {profileData && (
             <div className="relative">
               <div className="border-[1px] px-2 py-1 rounded-md border-primaryColor flex justify-center items-center gap-2 bg-primaryColor/5 cursor-pointer group hover:bg-transparent"
@@ -169,42 +180,42 @@ function Header() {
                 <div className="border-[1px] border-black/20 bg-white absolute top-14 z-50 w-full" ref={userRef}>
                   {profileData?.role?.name === 'ADMIN' ? (
                     <>
-                       <div className="flex items-center gap-2 border-b-[1px] py-1 px-2 hover:bg-primaryColor/5 cursor-pointer">
-                    <BiUser />
-                    <p>Profile</p>
-                  </div>
-                  <div className="flex items-center gap-2 px-2 py-1 cursor-pointer hover:bg-primaryColor/5"
-                    onClick={handleLogout}>
-                    <FiLogOut />
-                    <p>Logout</p>
-                  </div>
+                      <div className="flex items-center gap-2 border-b-[1px] py-1 px-2 hover:bg-primaryColor/5 cursor-pointer">
+                        <BiUser />
+                        <p>Profile</p>
+                      </div>
+                      <div className="flex items-center gap-2 px-2 py-1 cursor-pointer hover:bg-primaryColor/5"
+                        onClick={handleLogout}>
+                        <FiLogOut />
+                        <p>Logout</p>
+                      </div>
                     </>
                   ) : profileData?.role?.name === 'CUSTOMER' ? (
                     <>
-                     <div className="flex items-center gap-2 border-b-[1px] py-1 px-2 hover:bg-primaryColor/5 cursor-pointer">
-                    <BiUser />
-                    <p>Orders</p>
-                  </div>
-                  <div className="flex items-center gap-2 border-b-[1px] py-1 px-2 hover:bg-primaryColor/5 cursor-pointer">
-                    <BiUser />
-                    <p>Address</p>
-                  </div>
-                  <div className="flex items-center gap-2 border-b-[1px] py-1 px-2 hover:bg-primaryColor/5 cursor-pointer">
-                    <BiUser />
-                    <p>Account Details</p>
-                  </div>
-                  <div className="flex items-center gap-2 border-b-[1px] py-1 px-2 hover:bg-primaryColor/5 cursor-pointer">
-                    <FaHeart />
-                    <p>Wishlist</p>
-                  </div>
-                  <div className="flex items-center gap-2 px-2 py-1 cursor-pointer hover:bg-primaryColor/5"
-                    onClick={handleLogout}>
-                    <FiLogOut />
-                    <p>Logout</p>
-                  </div>
+                      <div className="flex items-center gap-2 border-b-[1px] py-1 px-2 hover:bg-primaryColor/5 cursor-pointer">
+                        <BiUser />
+                        <p>Orders</p>
+                      </div>
+                      <div className="flex items-center gap-2 border-b-[1px] py-1 px-2 hover:bg-primaryColor/5 cursor-pointer">
+                        <BiUser />
+                        <p>Address</p>
+                      </div>
+                      <div className="flex items-center gap-2 border-b-[1px] py-1 px-2 hover:bg-primaryColor/5 cursor-pointer">
+                        <BiUser />
+                        <p>Account Details</p>
+                      </div>
+                      <div className="flex items-center gap-2 border-b-[1px] py-1 px-2 hover:bg-primaryColor/5 cursor-pointer">
+                        <FaHeart />
+                        <p>Wishlist</p>
+                      </div>
+                      <div className="flex items-center gap-2 px-2 py-1 cursor-pointer hover:bg-primaryColor/5"
+                        onClick={handleLogout}>
+                        <FiLogOut />
+                        <p>Logout</p>
+                      </div>
                     </>
                   ) : ""}
-                 
+
                 </div>
               )}
 
@@ -227,8 +238,52 @@ function Header() {
       </div> */}
       </div>
 
-      {openModal && <LoginModal openModal={openModal} handleClose={() => setOpenModal(!openModal)} />}
-        {openCartModel && <CartModal openModal={openCartModel} handleClose={()=>setOpenCartModal(!openCartModel)}/>}
+      
+      {openModal && (
+        <div className="fixed inset-0 z-50 flex justify-center bg-black bg-opacity-50">
+        <div className="bg-white rounded-lg max-w-lg 2xl:max-w-xl w-full flex flex-col max-h-[90%] h-fit  animate-slideTop">
+          <div className="flex items-center justify-between px-4 pt-4 pb-3 border-b">
+            <h2 className="text-lg font-medium">{openModals ? "SignUp" : "SignIn"}</h2>
+            <button
+              type="button"
+              className="text-gray-600 hover:text-gray-900"
+              onClick={()=>setOpenModal(!openModal)}
+            >
+              <span className="sr-only">Close</span>
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+         </div>
+        {openModals ? (
+           <>
+           <div className="overflow-y-scroll hide-scrollbar">
+              <SignUpModal/>
+           </div>
+           <div className="col-span-12 px-5 pb-3">
+                                  <p 
+                                  onClick={()=>setOpenModals(!openModals)}
+                                  className="text-xs">Already have an Account <span className="text-sm underline cursor-pointer text-primaryColor">Sign In</span></p>
+              </div>
+           </>
+        ) : (
+          <>
+          <div className="overflow-y-scroll hide-scrollbar">
+             <LoginModal/>
+          </div>
+          <div className="col-span-12 px-5 pb-3">
+                                 <p
+                                 onClick={()=>setOpenModals(!openModals)}
+                                 className="text-xs">Create An Account <span className="text-sm underline cursor-pointer text-primaryColor">Sign Up</span></p>
+             </div>
+          </>
+        )}
+        
+         
+        </div>
+        </div>
+        )}
+      {openCartModel && <CartModal openModal={openCartModel} handleClose={() => setOpenCartModal(!openCartModel)} />}
     </>
   )
 }

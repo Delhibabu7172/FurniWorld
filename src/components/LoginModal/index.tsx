@@ -1,5 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import logo from "../../assets/images/navbar/Logo1.svg"
+import logo from "../../assets/images/navbar/newlogo.svg"
 import { useState } from "react";
 import { Resolver, SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -8,11 +8,9 @@ import * as yup from "yup"
 import { postSigninApi } from "../../api-service/authApi";
 import { getErrorMessage } from "../../utils/helper";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
-import { MdCancel } from "react-icons/md";
 
-function LoginModal({ openModal, handleClose } : any) {
+function LoginModal() {
 
-    if(!openModal) return;
 
     const navigate = useNavigate()
     const [error , setError] = useState('')
@@ -64,7 +62,6 @@ function LoginModal({ openModal, handleClose } : any) {
             localStorage.setItem('name', updateApi.data?.result.user.name);
     
             toast.success(updateApi?.data?.msg)
-            handleClose()
             navigate('/')  
     
           } else{
@@ -79,12 +76,11 @@ function LoginModal({ openModal, handleClose } : any) {
     
 
   return (
-    <div className="fixed inset-0 z-50 flex pt-[10vh] justify-center bg-opacity-50 bg-primaryColor font-Lexend">
-        <div className="flex flex-col w-full max-w-md p-4 overflow-y-scroll bg-white rounded-lg h-fit hide-scrollbar animate-slideTop">
-            <div>
-            <div className="flex items-center gap-12">
-        <img src={logo} className="w-24 md:w-36" alt="" />
-        </div>
+            <div className="px-5 py-4 font-Lexend">
+             <div className='col-span-12 flex items-center gap-2'>
+                        <img src={logo} alt="" />
+                        <p className='font-bold text-lg'>FURNI WORLD</p>
+                    </div>
             
             <form onSubmit={handleSubmit(onSubmit)}>
              <div className="grid grid-cols-12 mt-4 gap-y-4">
@@ -118,18 +114,10 @@ function LoginModal({ openModal, handleClose } : any) {
                         Sign In
                       </button>
                             </div>
-                            <div className="col-span-12">
-                                <p className="text-xs">Create An Account <span className="text-sm underline cursor-pointer text-primaryColor">Sign Up</span></p>
-                            </div>
+                          
                  </div>
-                 <button className="absolute top-2 right-2"
-                 onClick={handleClose}>
-                    <MdCancel/>
-                 </button>
                  </form>
                  </div>
-        </div>
-        </div>
   )
 }
 

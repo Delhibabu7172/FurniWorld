@@ -6,6 +6,7 @@ import { BrowserRouter } from 'react-router-dom'
 import ScrollToTop from './components/scrollToTop/index.tsx'
 import { Toaster } from 'react-hot-toast'
 import Router from './Router/index.tsx'
+import ProvidersRedux from './redux/ProvidersRedux.tsx'
 
 const queryClient = new QueryClient()
 
@@ -14,7 +15,9 @@ createRoot(document.getElementById('root')!).render(
     <QueryClientProvider client={queryClient}>
         <BrowserRouter>
         <ScrollToTop/>
-           <Router />
+        <ProvidersRedux>
+        <Router />
+        </ProvidersRedux>
         </BrowserRouter>
         <Toaster
         position='top-right'
